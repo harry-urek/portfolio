@@ -27,6 +27,7 @@
         --input: 240 5.9% 90%;
         --ring: 240 5.9% 10%;
         --radius: 0.5rem;
+        --transition-speed: 0.3s;
     }
 
     .dark {
@@ -58,6 +59,12 @@
         box-sizing: border-box;
         padding: 0;
         margin: 0;
+        transition: background-color var(--transition-speed) ease,
+            color var(--transition-speed) ease,
+            border-color var(--transition-speed) ease,
+            transform var(--transition-speed) ease,
+            opacity var(--transition-speed) ease,
+            box-shadow var(--transition-speed) ease;
     }
 
     body {
@@ -67,6 +74,7 @@
         overflow-x: hidden;
         color: var(--primary);
         background-color: var(--background);
+        scroll-behavior: smooth;
     }
 
     a {
@@ -85,13 +93,58 @@
     background: linear-gradient(135deg, #f5f5f5 0%, var(--background-darker) 100%);
 }
 
+/* Section transitions */
+.section-transition {
+    position: relative;
+    overflow: hidden;
+}
+
+.section-transition::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2));
+    pointer-events: none;
+    z-index: 1;
+}
+
 /* Dark and light sections */
 .section-dark {
     background-color: var(--background-dark);
+    position: relative;
 }
 
 .section-darker {
     background-color: var(--background-darker);
+    position: relative;
+}
+
+/* Section transitions with dividers */
+.section-divider {
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--background), transparent);
+}
+
+/* Fullscreen hero section */
+.hero-fullscreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
 /* Custom text colors */
@@ -101,6 +154,18 @@
 
 .text-secondary {
     color: var(--secondary);
+}
+
+/* Section reveal animation */
+.reveal-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-section.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 @media (prefers-color-scheme: dark) {
