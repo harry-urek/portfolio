@@ -31,108 +31,105 @@ const educationItems: EducationItem[] = [
 
 export default function Education() {
   return (
-    <>
-      <div className="section-divider"></div>
-      <section id="education" className="py-20 px-6 md:px-10 bg-white section-transition">
-        <div className="reveal-section">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4 text-primary">Education</h2>
-              <p className="max-w-2xl mx-auto text-secondary">
-                My academic background in Computer Science and Data Science
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
+    <section id="education" className="py-20 px-6 md:px-10 bg-black section-transition">
+      <div className="reveal-section">
+        <ScrollReveal>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 text-white">Education</h2>
+            <p className="max-w-2xl mx-auto text-gray-400">
+              My academic background in Computer Science and Data Science
+            </p>
+          </div>
+        </ScrollReveal>
+      </div>
 
-        <div className="max-w-4xl mx-auto reveal-section" style={{ transitionDelay: '0.3s' }}>
-          <motion.div 
-            className="relative border-l-2 border-secondary/20 pl-10 py-4"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            {educationItems.map((item, index) => (
+      <div className="max-w-4xl mx-auto reveal-section" style={{ transitionDelay: '0.3s' }}>
+        <motion.div 
+          className="relative border-l-2 border-gray-700 pl-10 py-4"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          {educationItems.map((item, index) => (
+            <motion.div 
+              key={index} 
+              className="mb-12 relative"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: index * 0.2,
+                type: "spring",
+                stiffness: 100
+              }}
+            >
               <motion.div 
-                key={index} 
-                className="mb-12 relative"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                className="absolute -left-12 top-0 bg-gradient-to-r from-gray-700 to-gray-500 p-2 rounded-full text-white"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
                 transition={{ 
-                  duration: 0.7, 
-                  delay: index * 0.2,
+                  delay: index * 0.2 + 0.3, 
                   type: "spring",
-                  stiffness: 100
+                  stiffness: 300 
                 }}
               >
-                <motion.div 
-                  className="absolute -left-12 top-0 bg-gradient-primary p-2 rounded-full text-white"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    delay: index * 0.2 + 0.3, 
-                    type: "spring",
-                    stiffness: 300 
-                  }}
-                >
-                  <GraduationCap size={20} />
-                </motion.div>
-                <motion.div 
-                  className="bg-white p-6 rounded-lg shadow-md border border-secondary/10"
-                  whileHover={{ 
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                    y: -5
-                  }}
-                  transition={{ 
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 15
-                  }}
-                >
-                  <TextReveal delay={index * 0.1}>
-                    <h3 className="text-xl font-bold mb-1 text-primary">{item.institution}</h3>
-                  </TextReveal>
-                  <TextReveal delay={index * 0.1 + 0.1}>
-                    <h4 className="text-lg font-medium text-primary mb-2">{item.degree}</h4>
-                  </TextReveal>
-                  <motion.div 
-                    className="flex items-center text-secondary mb-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 + 0.2 }}
-                  >
-                    <Calendar size={16} className="mr-2" />
-                    <span>{item.period}</span>
-                  </motion.div>
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-                    <motion.p 
-                      className="text-secondary"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 + 0.3 }}
-                    >
-                      {item.location}
-                    </motion.p>
-                    <motion.p 
-                      className="mt-1 md:mt-0 font-medium text-primary"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 + 0.4 }}
-                    >
-                      {item.gpa}
-                    </motion.p>
-                  </div>
-                </motion.div>
+                <GraduationCap size={20} />
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-    </>
+              <motion.div 
+                className="bg-black p-6 rounded-lg shadow-lg border border-gray-800"
+                whileHover={{ 
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
+                  y: -5
+                }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 15
+                }}
+              >
+                <TextReveal delay={index * 0.1}>
+                  <h3 className="text-xl font-bold mb-1 text-white">{item.institution}</h3>
+                </TextReveal>
+                <TextReveal delay={index * 0.1 + 0.1}>
+                  <h4 className="text-lg font-medium text-white mb-2">{item.degree}</h4>
+                </TextReveal>
+                <motion.div 
+                  className="flex items-center text-gray-400 mb-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 + 0.2 }}
+                >
+                  <Calendar size={16} className="mr-2" />
+                  <span>{item.period}</span>
+                </motion.div>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+                  <motion.p 
+                    className="text-gray-400"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 + 0.3 }}
+                  >
+                    {item.location}
+                  </motion.p>
+                  <motion.p 
+                    className="mt-1 md:mt-0 font-medium text-white"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 + 0.4 }}
+                  >
+                    {item.gpa}
+                  </motion.p>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
   );
 } 

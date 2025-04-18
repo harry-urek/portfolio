@@ -82,23 +82,23 @@ export default function TechStack() {
 
   return (
     <>
-      <div className="section-divider"></div>
-      <section id="tech-stack" className="py-20 px-6 md:px-10 section-darker section-transition">
+      {/* Removed section divider for seamless transition */}
+      <section id="tech-stack" className="py-20 px-6 md:px-10 bg-black text-white section-transition">
         <div className="reveal-section">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <p className="text-sm font-medium uppercase tracking-wider mb-2 text-secondary">MY TECH STACK</p>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
+              <p className="text-sm font-medium uppercase tracking-wider mb-2 text-gray-400">MY TECH STACK</p>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                 Technologies I Work With
                 <motion.div 
-                  className="h-1 w-24 bg-gradient-primary mx-auto mt-2"
+                  className="h-1 w-24 bg-gradient-to-r from-gray-700 to-gray-500 mx-auto mt-2"
                   initial={{ width: 0 }}
                   whileInView={{ width: 96 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
                 ></motion.div>
               </h2>
-              <p className="max-w-2xl mx-auto text-secondary">
+              <p className="max-w-2xl mx-auto text-gray-400">
                 A comprehensive stack of modern technologies that I use to build robust and
                 scalable applications, from microservices to ML systems
               </p>
@@ -116,9 +116,9 @@ export default function TechStack() {
                   onClick={() => setActiveCategory(category.name)}
                   className={`px-6 py-3 rounded-md border text-sm font-medium transition-colors
                     ${activeCategory === category.name 
-                      ? 'bg-gradient-primary text-white' 
-                      : 'bg-white text-primary hover:bg-background-dark'}`}
-                  whileHover={{ y: -2, boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
+                      ? 'bg-gradient-to-r from-gray-700 to-gray-600 text-white border-gray-600' 
+                      : 'bg-black text-gray-300 border-gray-700 hover:bg-gray-900'}`}
+                  whileHover={{ y: -2, boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)" }}
                   whileTap={{ scale: 0.97 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -138,22 +138,22 @@ export default function TechStack() {
               {activeTech.map((tech, index) => (
                 <StaggerItem key={tech.name} delay={index * 0.05}>
                   <motion.div 
-                    className="relative bg-white p-8 rounded-xl shadow-md hover:shadow-lg transform transition-all border border-secondary/10"
-                    whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                    className="relative bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 transform transition-all"
+                    whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.5)" }}
                     layout
                     layoutId={`tech-item-${tech.name}`}
                   >
                     <div className="flex flex-col items-center justify-center h-full">
                       <div className="relative w-24 h-24 mx-auto mb-4 flex items-center justify-center">
                         <motion.div 
-                          className="absolute inset-0 -right-2 -bottom-2 bg-primary z-0 rounded-lg transform rotate-3"
+                          className="absolute inset-0 -right-2 -bottom-2 bg-gradient-to-br from-gray-700 to-gray-800 z-0 rounded-lg transform rotate-3"
                           whileHover={{ rotate: 0 }}
                           transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         ></motion.div>
-                        <div className="relative z-10 w-full h-full bg-white border border-secondary/10 rounded-lg flex items-center justify-center p-4">
+                        <div className="relative z-10 w-full h-full bg-gray-900 border border-gray-700 rounded-lg flex items-center justify-center p-4">
                           <motion.div 
                             className="w-full h-full flex items-center justify-center text-white font-medium" 
-                            style={{ backgroundColor: tech.color || '#888888' }}
+                            style={{ backgroundColor: tech.color || '#555555' }}
                             whileHover={{ scale: 1.08 }}
                             transition={{ type: "spring", stiffness: 400 }}
                           >
@@ -161,7 +161,7 @@ export default function TechStack() {
                           </motion.div>
                         </div>
                       </div>
-                      <h3 className="text-xl font-medium text-center text-primary">{tech.name}</h3>
+                      <h3 className="text-xl font-medium text-center text-white">{tech.name}</h3>
                     </div>
                   </motion.div>
                 </StaggerItem>

@@ -51,6 +51,26 @@ yarn dev
 
 ## Deployment
 
+### Deploy to GitHub Pages
+
+This project includes a GitHub workflow for automatic deployment to GitHub Pages:
+
+1. **Before first deployment:**
+   - In GitHub repository settings, go to "Pages" and set the source to "GitHub Actions"
+   - Update the `basePath` in `next.config.js` to match your repository name (e.g., `/portfolio`) 
+   - If deploying to `username.github.io`, set `basePath` to an empty string
+
+2. **Automatic deployment:**
+   - Every push to the `main` branch will trigger the deployment workflow
+   - You can also manually trigger the workflow from the "Actions" tab in your GitHub repository
+
+3. **Manual deployment:**
+   ```bash
+   npm run deploy
+   ```
+
+### Deploy to Vercel
+
 The easiest way to deploy this site is to use [Vercel](https://vercel.com/), the platform from the creators of Next.js:
 
 ```bash
