@@ -1,7 +1,17 @@
+"use client";
+
 import Link from 'next/link';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Footer() {
+  // Client-side rendering for the date
+  const [currentYear, setCurrentYear] = useState('');
+  
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear().toString());
+  }, []);
+
   return (
     <footer className="bg-black text-white py-10 px-6 md:px-10">
       <div className="flex flex-col md:flex-row justify-between gap-8">
@@ -34,7 +44,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/20 mt-8 pt-8 text-gray-400 text-sm">
-        &copy; {new Date().getFullYear()} YourName. All rights reserved.
+        &copy; {currentYear} YourName. All rights reserved.
       </div>
     </footer>
   );

@@ -1,7 +1,17 @@
+"use client";
+
 import Link from 'next/link';
 import { Download, ExternalLink, Github, Users } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Hero() {
+  // Use state and useEffect to handle client-side rendering of dynamic content
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <section id="home" className="py-20 px-6 md:px-10 flex flex-col md:flex-row md:items-center gap-10 md:gap-20">
       <div className="flex-1 space-y-6">
@@ -63,9 +73,15 @@ export default function Hero() {
         <div className="relative aspect-square max-w-[500px] mx-auto md:ml-auto overflow-hidden">
           <div className="absolute inset-0 border-8 border-black rounded-2xl bg-black transform rotate-3 z-10"></div>
           <div className="absolute inset-0 bg-white border-8 border-black rounded-2xl z-20 overflow-hidden">
-            <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-500">Profile Image</span>
-            </div>
+            {isMounted ? (
+              <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">Profile Image</span>
+              </div>
+            ) : (
+              <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">Loading...</span>
+              </div>
+            )}
             <div className="absolute bottom-4 right-4 bg-black text-white text-sm px-3 py-1 rounded-full z-30">
               3+ Years
             </div>
