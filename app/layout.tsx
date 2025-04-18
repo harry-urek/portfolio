@@ -22,7 +22,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} min-h-screen`}>
+        <div className="main-background fixed inset-0 -z-10"></div>
         {children}
       </body>
     </html>
