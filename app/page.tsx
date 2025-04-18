@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
+import WhyChooseMe from '@/components/WhyChooseMe';
 import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
 import TechStack from '@/components/TechStack';
@@ -42,6 +43,7 @@ export default function Home() {
       <Projects />
       <TechStack />
       <Education />
+      <WhyChooseMe />
       <Footer />
     </main>
   );
