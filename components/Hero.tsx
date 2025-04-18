@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Download, ExternalLink, Github, Users } from 'lucide-react';
+import { Download, ExternalLink, Github, Users, Code, Mail, Linkedin } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Hero() {
@@ -16,20 +16,19 @@ export default function Hero() {
     <section id="home" className="py-20 px-6 md:px-10 flex flex-col md:flex-row md:items-center gap-10 md:gap-20">
       <div className="flex-1 space-y-6">
         <div className="inline-block px-4 py-2 bg-gray-100 rounded-full text-sm">
-          3+ Years Experience
+          Computer Science & AI Engineer
         </div>
         
         <h1 className="text-5xl md:text-6xl font-bold">
-          Hi, I&apos;m <span className="border-b-4 border-black">Your Name</span>
+          Hi, I&apos;m <span className="border-b-4 border-black">Hari Om Bhardwaj</span>
         </h1>
         
-        <h2 className="text-2xl font-medium">Full Stack Developer</h2>
+        <h2 className="text-2xl font-medium">Full Stack Developer & ML Engineer</h2>
         
         <p className="text-gray-700 max-w-2xl">
-          I&apos;m a Full Stack Developer focused on building SaaS products and AI-powered
-          apps. I help startups turn their ideas into real, scalable products. I work on
-          both frontend and backend using tools like Next.js, Tailwind CSS, and cloud
-          services to build fast, reliable, and user-friendly experiences.
+          I build robust backend systems and ML applications. My expertise includes developing high-performance 
+          microservices, messaging systems, and custom machine learning solutions using modern technologies. 
+          I&apos;m passionate about open-source contributions and creating efficient, scalable software solutions.
         </p>
         
         <div className="flex flex-wrap items-center gap-6">
@@ -37,16 +36,16 @@ export default function Hero() {
             <div className="p-2 bg-black rounded-full">
               <Github className="text-white" size={20} />
             </div>
-            <span className="font-bold">20+</span>
+            <span className="font-bold">3+</span>
             <span className="text-gray-500">Projects</span>
           </div>
            
           <div className="flex items-center gap-2">
             <div className="p-2 bg-black rounded-full">
-              <Users className="text-white" size={20} />
+              <Code className="text-white" size={20} />
             </div>
-            <span className="font-bold">15+</span>
-            <span className="text-gray-500">Clients</span>
+            <span className="font-bold">2+</span>
+            <span className="text-gray-500">Universities</span>
           </div>
         </div>
         
@@ -67,6 +66,18 @@ export default function Hero() {
             <ExternalLink size={18} />
           </Link>
         </div>
+
+        <div className="flex gap-3 pt-4">
+          <a href="mailto:hariombhardwaj038@gmail.com" className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition">
+            <Mail size={20} />
+          </a>
+          <a href="https://github.com/harry-urek" target="_blank" rel="noopener noreferrer" className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition">
+            <Github size={20} />
+          </a>
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition">
+            <Linkedin size={20} />
+          </a>
+        </div>
       </div>
       
       <div className="flex-1 relative">
@@ -83,13 +94,13 @@ export default function Hero() {
               </div>
             )}
             <div className="absolute bottom-4 right-4 bg-black text-white text-sm px-3 py-1 rounded-full z-30">
-              3+ Years
+              +91 7357387554
             </div>
           </div>
           <div className="absolute top-5 left-5 bg-white p-2 rounded-lg shadow-lg z-30">
             <div className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium flex items-center gap-1">
               <span className="h-2 w-2 bg-green-500 rounded-full"></span>
-              Available for work
+              Available for opportunities
             </div>
           </div>
         </div>

@@ -13,61 +13,68 @@ interface TechCategory {
   items: TechItem[];
 }
 
-// Define tech stack data
+// Define tech stack data based on resume
 const techCategories: TechCategory[] = [
   {
-    name: "Backend",
+    name: "Languages",
     items: [
-      { name: "Node.js", color: "#539e43" },
-      { name: "Express.js", color: "#000000" },
-      { name: "Java", color: "#e76f00" },
-      { name: "Firebase", color: "#ffca28" },
-      { name: "PHP", color: "#777bb3" }
+      { name: "GoLang", color: "#00ADD8" },
+      { name: "Python", color: "#3776AB" },
+      { name: "JavaScript", color: "#F7DF1E" }
     ]
   },
   {
-    name: "Frontend",
+    name: "Frameworks",
     items: [
-      { name: "React", color: "#61dafb" },
-      { name: "Next.js", color: "#000000" },
-      { name: "Tailwind CSS", color: "#38b2ac" },
-      { name: "TypeScript", color: "#3178c6" }
+      { name: "FastAPI", color: "#009688" },
+      { name: "Flask", color: "#000000" },
+      { name: "Django", color: "#092E20" },
+      { name: "Express", color: "#000000" },
+      { name: "NextJS", color: "#000000" }
     ]
   },
   {
-    name: "Database",
+    name: "Databases",
     items: [
-      { name: "MongoDB", color: "#47a248" },
       { name: "PostgreSQL", color: "#336791" },
-      { name: "MySQL", color: "#4479a1" }
+      { name: "MySQL", color: "#4479A1" },
+      { name: "Redis", color: "#DC382D" },
+      { name: "MongoDB", color: "#47A248" }
     ]
   },
   {
-    name: "Cloud",
+    name: "Libraries",
     items: [
-      { name: "AWS", color: "#ff9900" },
-      { name: "Firebase", color: "#ffca28" },
-      { name: "Vercel", color: "#000000" }
+      { name: "PyTorch", color: "#EE4C2C" },
+      { name: "Pandas", color: "#150458" },
+      { name: "SQLAlchemy", color: "#D71F00" },
+      { name: "Pydantic", color: "#E92063" }
     ]
   },
   {
-    name: "Mobile",
+    name: "Tools",
     items: [
-      { name: "React Native", color: "#61dafb" },
-      { name: "Flutter", color: "#02569b" }
+      { name: "Git", color: "#F05032" },
+      { name: "Vim", color: "#019733" },
+      { name: "GitHub", color: "#181717" },
+      { name: "Docker", color: "#2496ED" },
+      { name: "AWS", color: "#FF9900" }
     ]
   },
   {
-    name: "CMS",
+    name: "Protocols",
     items: [
-      { name: "WordPress", color: "#21759b" },
-      { name: "Strapi", color: "#2f2e8b" }
+      { name: "gRPC", color: "#244C5A" },
+      { name: "WebSockets", color: "#010101" },
+      { name: "REST", color: "#3884FF" },
+      { name: "OAuth 2.0", color: "#EB5424" },
+      { name: "JWT", color: "#000000" }
     ]
   }
 ];
 
 export default function TechStack() {
-  const [activeCategory, setActiveCategory] = useState("Backend");
+  const [activeCategory, setActiveCategory] = useState("Languages");
 
   const activeTech = techCategories.find(cat => cat.name === activeCategory)?.items || [];
 
@@ -81,7 +88,7 @@ export default function TechStack() {
         </h2>
         <p className="max-w-2xl mx-auto text-gray-600">
           A comprehensive stack of modern technologies that I use to build robust and
-          scalable applications
+          scalable applications, from microservices to ML systems
         </p>
       </div>
 
