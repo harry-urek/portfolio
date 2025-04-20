@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Mono } from 'next/font/google';
 import './globals.css';
+import { Inter } from 'next/font/google';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import ClientComponentsWrapper from '../components/ClientComponentsWrapper';
 
-// Define font with fallback options
-const inter = Inter({ 
+// Define monospace font with fallback options
+const spaceMono = Space_Mono({ 
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   display: 'swap',
-  fallback: ['system-ui', 'Arial', 'sans-serif'],
 });
 
 export const metadata: Metadata = {
@@ -22,9 +25,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen`}>
-        <div className="main-background fixed inset-0 -z-10"></div>
+      <body className={`${spaceMono.className} min-h-screen`}>
+        <div className="grid-background"></div>
+        <ClientComponentsWrapper />
+        
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

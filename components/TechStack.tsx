@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ScrollReveal, TextReveal, StaggerContainer, StaggerItem } from './animations';
+import { 
+  fadeIn, 
+  staggerContainer, 
+  slideIn, 
+  InteractiveBackgroundAnimation 
+} from './animations';
 
 // Define types for technology categories and items
 interface TechItem {
@@ -77,99 +82,100 @@ const techCategories: TechCategory[] = [
 
 export default function TechStack() {
   const [activeCategory, setActiveCategory] = useState("Languages");
-
   const activeTech = techCategories.find(cat => cat.name === activeCategory)?.items || [];
 
   return (
-    <>
-      {/* Removed section divider for seamless transition */}
-      <section id="tech-stack" className="py-20 px-6 md:px-10 bg-black text-white section-transition">
-        <div className="reveal-section">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <p className="text-sm font-medium uppercase tracking-wider mb-2 text-gray-400">MY TECH STACK</p>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Technologies I Work With
-                <motion.div 
-                  className="h-1 w-24 bg-gradient-to-r from-gray-700 to-gray-500 mx-auto mt-2"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: 96 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                ></motion.div>
-              </h2>
-              <p className="max-w-2xl mx-auto text-gray-400">
-                A comprehensive stack of modern technologies that I use to build robust and
-                scalable applications, from microservices to ML systems
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
+    <section id="tech-stack" className="py-32 relative overflow-hidden">
+      {/* Interactive background animation */}
+      <InteractiveBackgroundAnimation 
+        color="var(--neon-green)" 
+        density={15} 
+        cursorInteractive={true} 
+        scrollInteractive={true} 
+      />
+      
+      {/* Fixed position accent lines */}
+      <div className="absolute top-24 left-0 w-32 h-1 bg-neon-green glow-sm"></div>
+      <div className="absolute bottom-32 right-0 w-32 h-1 bg-neon-green glow-sm"></div>
+
+      <motion.div
+        variants={staggerContainer(0.1, 0.1)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
+        className="container mx-auto px-6 sm:px-8 z-10 relative"
+      >
+        {/* Section header */}
+        <motion.div
+          variants={fadeIn('up', 0.1)}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 glitch-text">MY <span className="text-neon-green">STACK</span></h2>
+          <p className="max-w-2xl mx-auto text-gray-400 text-lg">
+            Modern technologies I leverage to build robust and scalable applications
+          </p>
+        </motion.div>
 
         {/* Category Tabs */}
-        <div className="reveal-section" style={{ transitionDelay: '0.2s' }}>
-          <ScrollReveal delay={0.2}>
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              {techCategories.map((category, index) => (
-                <motion.button
-                  key={category.name}
-                  onClick={() => setActiveCategory(category.name)}
-                  className={`px-6 py-3 rounded-md border text-sm font-medium transition-colors
-                    ${activeCategory === category.name 
-                      ? 'bg-gradient-to-r from-gray-700 to-gray-600 text-white border-gray-600' 
-                      : 'bg-black text-gray-300 border-gray-700 hover:bg-gray-900'}`}
-                  whileHover={{ y: -2, boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)" }}
-                  whileTap={{ scale: 0.97 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  {category.name}
-                </motion.button>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
+        <motion.div variants={fadeIn('up', 0.2)}>
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {techCategories.map((category, index) => (
+              <motion.button
+                key={category.name}
+                onClick={() => setActiveCategory(category.name)}
+                className={`px-6 py-3 rounded-md text-sm font-medium transition-all duration-300 backdrop-blur-sm border
+                  ${activeCategory === category.name 
+                    ? 'border-neon-green text-neon-green bg-neon-green/5 glow-sm' 
+                    : 'border-gray-700 text-gray-400 hover:border-gray-500'}`}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                {category.name}
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Tech Items Grid */}
-        <div className="reveal-section" style={{ transitionDelay: '0.4s' }}>
-          <StaggerContainer delay={0.1}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {activeTech.map((tech, index) => (
-                <StaggerItem key={tech.name} delay={index * 0.05}>
-                  <motion.div 
-                    className="relative bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 transform transition-all"
-                    whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.5)" }}
-                    layout
-                    layoutId={`tech-item-${tech.name}`}
-                  >
-                    <div className="flex flex-col items-center justify-center h-full">
-                      <div className="relative w-24 h-24 mx-auto mb-4 flex items-center justify-center">
-                        <motion.div 
-                          className="absolute inset-0 -right-2 -bottom-2 bg-gradient-to-br from-gray-700 to-gray-800 z-0 rounded-lg transform rotate-3"
-                          whileHover={{ rotate: 0 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        ></motion.div>
-                        <div className="relative z-10 w-full h-full bg-gray-900 border border-gray-700 rounded-lg flex items-center justify-center p-4">
-                          <motion.div 
-                            className="w-full h-full flex items-center justify-center text-white font-medium" 
-                            style={{ backgroundColor: tech.color || '#555555' }}
-                            whileHover={{ scale: 1.08 }}
-                            transition={{ type: "spring", stiffness: 400 }}
-                          >
-                            {tech.name.substring(0, 2)}
-                          </motion.div>
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-medium text-center text-white">{tech.name}</h3>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-              ))}
-            </div>
-          </StaggerContainer>
-        </div>
-      </section>
-    </>
+        <motion.div
+          variants={staggerContainer(0.05, 0.3)}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          {activeTech.map((tech, index) => (
+            <motion.div
+              key={tech.name}
+              variants={fadeIn('up', index * 0.05 + 0.3)}
+              className="group"
+            >
+              <motion.div
+                whileHover={{ 
+                  y: -5, 
+                  boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)"
+                }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-black/30 backdrop-blur-sm p-6 border border-gray-800 hover:border-neon-green/50 transition-all duration-300"
+              >
+                {/* Glowing backdrop on hover */}
+                <div className="absolute inset-0 opacity-0 bg-neon-green/5 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                
+                <div className="flex flex-col items-center justify-center h-full relative">
+                  <div className="w-full aspect-square mb-4 flex items-center justify-center">
+                    <motion.div 
+                      className="w-full h-full flex items-center justify-center text-black font-bold text-2xl rounded-md"
+                      style={{ backgroundColor: "var(--neon-green)" }}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      {tech.name.substring(0, 2).toUpperCase()}
+                    </motion.div>
+                  </div>
+                  <h3 className="text-xl font-medium text-center">{tech.name}</h3>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </section>
   );
 } 

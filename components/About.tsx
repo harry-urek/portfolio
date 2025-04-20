@@ -90,10 +90,10 @@ export default function About() {
                   {skillItems.map((skill, index) => (
                     <StaggerItem key={index} delay={index * 0.1}>
                       <motion.div 
-                        className="bg-white p-6 rounded-xl shadow-md border border-secondary/10"
+                        className="bg-gray-800 p-6 rounded-xl shadow-md border border-gray-700"
                         whileHover={{ 
                           y: -5, 
-                          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+                          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)" 
                         }}
                         transition={{ 
                           type: "spring",
@@ -110,8 +110,8 @@ export default function About() {
                             {skill.icon}
                           </motion.div>
                           <div>
-                            <h3 className="text-xl font-bold mb-2 text-primary">{skill.title}</h3>
-                            <p className="text-secondary">{skill.description}</p>
+                            <h3 className="text-xl font-bold mb-2 text-white">{skill.title}</h3>
+                            <p className="text-gray-300 font-serif-alt leading-relaxed">{skill.description}</p>
                           </div>
                         </div>
                       </motion.div>

@@ -1,8 +1,9 @@
 "use client";
 
-import { GraduationCap, Calendar } from 'lucide-react';
+import { GraduationCap, Calendar, School, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { ScrollReveal, TextReveal } from './animations';
+import { fadeIn, staggerContainer, InteractiveBackgroundAnimation } from './animations';
+import { useState, useEffect } from 'react';
 
 interface EducationItem {
   institution: string;
@@ -30,105 +31,84 @@ const educationItems: EducationItem[] = [
 ];
 
 export default function Education() {
-  return (
-    <section id="education" className="py-20 px-6 md:px-10 bg-black section-transition">
-      <div className="reveal-section">
-        <ScrollReveal>
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-white">Education</h2>
-            <p className="max-w-2xl mx-auto text-gray-400">
-              My academic background in Computer Science and Data Science
-            </p>
-          </div>
-        </ScrollReveal>
-      </div>
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-      <div className="max-w-4xl mx-auto reveal-section" style={{ transitionDelay: '0.3s' }}>
-        <motion.div 
-          className="relative border-l-2 border-gray-700 pl-10 py-4"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
+  return (
+    <section id="education" className="py-32 relative overflow-hidden">
+      {/* Interactive background animation */}
+      {isMounted && (
+        <InteractiveBackgroundAnimation 
+          color="var(--neon-green)" 
+          density={15}
+          cursorInteractive={true}
+        />
+      )}
+      
+      {/* Static grid background */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div className="grid-background w-full h-full"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 z-10 relative">
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <p className="text-gray-400 text-lg mb-1">My academic background in Computer Science and Data Science</p>
+        </div>
+
+        <div className="max-w-3xl mx-auto relative">
+          {/* Left line */}
+          <div className="absolute left-0 top-6 bottom-0 w-[1px] bg-neon-green/30 opacity-60"></div>
+          
           {educationItems.map((item, index) => (
             <motion.div 
-              key={index} 
-              className="mb-12 relative"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.2,
-                type: "spring",
-                stiffness: 100
-              }}
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: index * 0.2 }}
+              className="mb-20 relative"
             >
-              <motion.div 
-                className="absolute -left-12 top-0 bg-gradient-to-r from-gray-700 to-gray-500 p-2 rounded-full text-white"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  delay: index * 0.2 + 0.3, 
-                  type: "spring",
-                  stiffness: 300 
-                }}
-              >
-                <GraduationCap size={20} />
-              </motion.div>
-              <motion.div 
-                className="bg-black p-6 rounded-lg shadow-lg border border-gray-800"
-                whileHover={{ 
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
-                  y: -5
-                }}
-                transition={{ 
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 15
-                }}
-              >
-                <TextReveal delay={index * 0.1}>
-                  <h3 className="text-xl font-bold mb-1 text-white">{item.institution}</h3>
-                </TextReveal>
-                <TextReveal delay={index * 0.1 + 0.1}>
-                  <h4 className="text-lg font-medium text-white mb-2">{item.degree}</h4>
-                </TextReveal>
-                <motion.div 
-                  className="flex items-center text-gray-400 mb-3"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
-                >
-                  <Calendar size={16} className="mr-2" />
-                  <span>{item.period}</span>
-                </motion.div>
-                <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-                  <motion.p 
-                    className="text-gray-400"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 + 0.3 }}
-                  >
-                    {item.location}
-                  </motion.p>
-                  <motion.p 
-                    className="mt-1 md:mt-0 font-medium text-white"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 + 0.4 }}
-                  >
-                    {item.gpa}
-                  </motion.p>
+              {/* Card */}
+              <div className="backdrop-blur-sm bg-black/80 ml-10 p-8 border border-gray-800 rounded-md">
+                {/* Institution with terminal style */}
+                <h3 className="text-xl font-bold mb-4 font-mono">
+                  <span className="text-neon-green">{'>  '}</span>
+                  {item.institution}
+                </h3>
+                
+                {/* Degree */}
+                <h4 className="text-xl ml-7 mb-6">{item.degree}</h4>
+                
+                {/* Date and Location */}
+                <div className="flex flex-col space-y-4 font-mono text-sm text-gray-400">
+                  <div className="flex items-center ml-7">
+                    <Calendar size={16} className="mr-3 text-neon-green/70" />
+                    <span>{item.period}</span>
+                  </div>
+                  
+                  <div className="flex items-center ml-7">
+                    <MapPin size={16} className="mr-3 text-neon-green/70" />
+                    <span>{item.location}</span>
+                  </div>
+                  
+                  <div className="flex items-center ml-7">
+                    <School size={16} className="mr-3 text-neon-green/70" />
+                    <span>{item.gpa}</span>
+                  </div>
                 </div>
-              </motion.div>
+                
+                {/* Line connecting to timeline */}
+                <div className="absolute top-6 left-0 w-10 h-[1px] bg-neon-green/30"></div>
+              </div>
+              
+              {/* Circle on timeline */}
+              <div className="absolute -left-[5px] top-6 w-[10px] h-[10px] rounded-full bg-neon-green"></div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

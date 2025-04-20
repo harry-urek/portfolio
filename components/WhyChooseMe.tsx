@@ -18,7 +18,7 @@ interface FeatureCard {
 export default function WhyChooseMe() {
   const featureCards: FeatureCard[] = [
     {
-      icon: <LightbulbIcon className="h-8 w-8 text-white" />,
+      icon: <LightbulbIcon className="h-8 w-8" />,
       title: "Problem Solver",
       description: "Turning complex business challenges into elegant, efficient solutions through strategic problem analysis and innovative thinking.",
       features: [
@@ -30,7 +30,7 @@ export default function WhyChooseMe() {
       ]
     },
     {
-      icon: <Code2Icon className="h-8 w-8 text-white" />,
+      icon: <Code2Icon className="h-8 w-8" />,
       title: "Technical Innovator",
       description: "Leveraging cutting-edge technologies to create future-proof solutions that keep your business ahead of the competition.",
       features: [
@@ -42,7 +42,7 @@ export default function WhyChooseMe() {
       ]
     },
     {
-      icon: <RocketIcon className="h-8 w-8 text-white" />,
+      icon: <RocketIcon className="h-8 w-8" />,
       title: "Strategic Partner",
       description: "Working alongside your team as more than just a developer—a strategic ally invested in your long-term business success.",
       features: [
@@ -54,7 +54,7 @@ export default function WhyChooseMe() {
       ]
     },
     {
-      icon: <BarChart2Icon className="h-8 w-8 text-white" />,
+      icon: <BarChart2Icon className="h-8 w-8" />,
       title: "Results Driver",
       description: "Focused on delivering measurable outcomes that directly impact your bottom line and accelerate business growth.",
       features: [
@@ -68,52 +68,101 @@ export default function WhyChooseMe() {
   ];
 
   return (
-    <section id="why-choose-me" className="py-20 px-6 md:px-10 bg-black text-white">
-      <div className="max-w-7xl mx-auto">
+    <section id="why-choose-me" className="py-24 px-6 md:px-10 bg-black relative overflow-hidden">
+      {/* Background grid pattern */}
+      <div className="absolute inset-0 z-0 opacity-20">
+        <div className="w-full h-full bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+      </div>
+      
+      {/* Accent line */}
+      <motion.div 
+        className="absolute left-0 bottom-0 h-[1px] bg-[#00FF66] z-10"
+        initial={{ width: 0 }}
+        whileInView={{ width: '100%' }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="text-sm font-medium uppercase tracking-wider mb-2 text-gray-400">WHAT I CAN DO FOR YOU</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white flex justify-center items-center">
-              Why Choose Me
-              <motion.div 
-                className="h-1 w-24 ml-4 bg-gradient-to-r from-gray-700 to-gray-500"
-                initial={{ width: 0 }}
-                whileInView={{ width: 96 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              ></motion.div>
-            </h2>
-            <p className="max-w-2xl mx-auto text-gray-400 mb-8">
+            <motion.p 
+              className="text-sm font-medium uppercase tracking-[0.3em] mb-2 text-[#00FF66]"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              VALUE PROPOSITION
+            </motion.p>
+            <motion.h2 
+              className="text-5xl md:text-7xl font-bold mb-8 text-white glitch-text" 
+              data-text="WHY CHOOSE ME"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              WHY CHOOSE ME
+            </motion.h2>
+            <motion.p 
+              className="max-w-2xl mx-auto text-gray-400 text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
               I don't just build software—I solve business problems through technology,
               creating custom solutions that drive real, measurable value.
-            </p>
+            </motion.p>
           </div>
         </ScrollReveal>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {featureCards.map((card, index) => (
             <StaggerItem key={index} delay={index * 0.1}>
-              <div className="bg-gray-900 rounded-lg p-8 border border-gray-800 h-full hover:shadow-glow-sm transition-all">
-                <div className="flex items-start">
-                  <div className="bg-gradient-to-r from-gray-800 to-gray-700 p-3 rounded-lg mr-4">
-                    {card.icon}
+              <motion.div 
+                className="bg-[#0A0A0A] border border-[#333] p-8 h-full group relative overflow-hidden"
+                whileHover={{ 
+                  borderColor: "#00FF66",
+                  boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)",
+                  y: -5
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Animated corner accent */}
+                <div className="absolute top-0 right-0 grid-item"></div>
+                <div className="absolute bottom-0 left-0 grid-item"></div>
+                
+                {/* Hover glow effect */}
+                <motion.div 
+                  className="absolute inset-0 opacity-0 bg-[#00FF66] blur-xl z-0 group-hover:opacity-5 transition-opacity duration-300"
+                />
+                
+                <div className="relative z-10">
+                  <div className="flex items-start mb-4">
+                    <div className="bg-[#00FF66] p-4 rounded-sm mr-4">
+                      <div className="text-black">
+                        {card.icon}
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mt-2">{card.title}</h3>
                   </div>
-                  <h3 className="text-2xl font-bold mb-2">{card.title}</h3>
+                  
+                  <p className="mb-6 text-gray-400 min-h-[80px]">
+                    {card.description}
+                  </p>
+                  
+                  <ul className="space-y-3">
+                    {card.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start">
+                        <CheckIcon className="h-5 w-5 text-[#00FF66] mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-300">{feature.text}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <p className="mt-4 mb-6 text-gray-400 min-h-[80px]">
-                  {card.description}
-                </p>
-                
-                <ul className="space-y-2">
-                  {card.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start">
-                      <CheckIcon className="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-300">{feature.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </motion.div>
             </StaggerItem>
           ))}
         </StaggerContainer>

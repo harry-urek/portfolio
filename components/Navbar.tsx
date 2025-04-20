@@ -1,33 +1,43 @@
 "use client";
 
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ExternalLink, Menu } from 'lucide-react';
+import { ExternalLink, Menu, Code } from 'lucide-react';
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className="flex justify-between items-center py-4 px-6 md:px-10 border-b">
-      <Link href="/" className="text-2xl font-bold">Hari Om Bhardwaj</Link>
-      <div className="hidden md:flex items-center gap-8">
-        <Link href="#home" className="hover:text-black/70 transition">Home</Link>
-        <Link href="#portfolio" className="hover:text-black/70 transition">Projects</Link>
-        <Link href="#tech-stack" className="hover:text-black/70 transition">Skills</Link>
-        <Link href="#education" className="hover:text-black/70 transition">Education</Link>
-        <div className="relative">
-          <Link 
-            href="#contact" 
-            className="px-4 py-2 bg-black text-white rounded-md flex items-center gap-2 hover:bg-black/80 transition"
-          >
-            <span>Contact Me</span>
-            <ExternalLink size={18} />
-          </Link>
-          <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-            Available
-          </div>
-        </div>
+    <header className={`fixed w-full transition-all duration-300 ease-in-out z-50 ${scrolled ? 'py-3 border-b border-[#00FF66]' : 'py-5'} bg-black`}>
+      <div className="container mx-auto flex justify-center items-center px-6 md:px-10 relative">
+        {/* Left decoration */}
+        <div className="absolute left-6 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-[#00FF66]"></div>
+        
+        {/* Logo centered */}
+        <motion.a 
+          href="#" 
+          className="font-mono text-2xl text-white font-bold tracking-wider flex items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="text-[#00FF66] mr-1">&lt;</span>
+          HARI
+          <span className="text-[#00FF66] ml-1">/&gt;</span>
+        </motion.a>
+        
+        {/* Right decoration */}
+        <div className="absolute right-6 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-[#00FF66]"></div>
       </div>
-      <button className="md:hidden">
-        <Menu size={24} />
-      </button>
-    </nav>
+    </header>
   );
 } 

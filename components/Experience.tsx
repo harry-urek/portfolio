@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ScrollReveal, TextReveal, StaggerContainer, StaggerItem } from './animations';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 interface ExperienceItem {
   company: string;
@@ -47,61 +47,104 @@ const experienceData: ExperienceItem[] = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 px-6 md:px-16 bg-black section-transition">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 reveal-section">
-          <ScrollReveal>
-            <p className="text-sm font-medium uppercase tracking-wider mb-2 text-gray-400">EXPERIENCE</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              My Professional Journey
-            </h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-gray-700 to-gray-500 mx-auto mt-2 mb-6"></div>
-            <p className="max-w-2xl mx-auto text-gray-400">
-              A detailed look at my work experience and key contributions across different roles.
-            </p>
-          </ScrollReveal>
-        </div>
+    <section id="experience" className="py-24 px-6 md:px-10 bg-black relative overflow-hidden">
+      {/* Background grid pattern */}
+      <div className="absolute inset-0 z-0 opacity-20">
+        <div className="w-full h-full bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+      </div>
+      
+      {/* Neon accent line */}
+      <motion.div 
+        className="absolute left-0 top-0 h-[1px] bg-[#00FF66] z-10"
+        initial={{ width: 0 }}
+        whileInView={{ width: '100%' }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {experienceData.map((item, index) => (
-            <div
-              key={index}
-              className="reveal-section"
-              style={{ transitionDelay: `${0.1 * index}s` }}
+      <div className="max-w-6xl mx-auto relative z-10">
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <motion.p 
+              className="text-sm font-medium uppercase tracking-[0.3em] mb-2 text-[#00FF66]"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
             >
+              PROFESSIONAL JOURNEY
+            </motion.p>
+            <motion.h2 
+              className="text-5xl md:text-7xl font-bold mb-8 text-white glitch-text" 
+              data-text="EXPERIENCE"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              EXPERIENCE
+            </motion.h2>
+            <motion.p 
+              className="max-w-2xl mx-auto text-gray-400 text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              A detailed look at my work experience and key contributions across different roles.
+            </motion.p>
+          </div>
+        </ScrollReveal>
+
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {experienceData.map((item, index) => (
+            <StaggerItem key={index} delay={index * 0.1}>
               <motion.div
-                className="bg-gray-900 p-8 rounded-xl shadow-md border border-gray-800 h-full"
-                whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)" }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                className="bg-[#0A0A0A] border border-[#333] p-8 h-full group relative overflow-hidden"
+                whileHover={{ 
+                  borderColor: "#00FF66",
+                  boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)",
+                  y: -5
+                }}
+                transition={{ duration: 0.3 }}
               >
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-white">{item.company}</h3>
-                  <div className="flex flex-col space-y-1">
-                    <p className="font-medium text-lg text-gray-300">{item.role}</p>
+                {/* Animated corner accent */}
+                <div className="absolute top-0 right-0 grid-item"></div>
+                <div className="absolute bottom-0 left-0 grid-item"></div>
+                
+                {/* Hover glow effect */}
+                <motion.div 
+                  className="absolute inset-0 opacity-0 bg-[#00FF66] blur-xl z-0 group-hover:opacity-5 transition-opacity duration-300"
+                />
+                
+                <div className="relative z-10 space-y-4">
+                  <div className="border-l-4 border-[#00FF66] pl-4">
+                    <h3 className="text-2xl font-bold text-white">{item.company}</h3>
+                    <p className="font-medium text-lg text-[#00FF66]">{item.role}</p>
                     <p className="text-gray-500 text-sm">{item.period}</p>
                   </div>
                   
-                  <p className="text-gray-400">{item.description}</p>
+                  <p className="text-gray-400 py-2">{item.description}</p>
                   
                   <div>
                     <h4 className="font-bold text-lg text-white mt-6 mb-4 flex items-center">
-                      <div className="h-0.5 w-6 bg-gradient-to-r from-gray-700 to-gray-500 mr-2"></div>
+                      <span className="text-[#00FF66] mr-2">&#x2192;</span>
                       Key Contributions
                     </h4>
                     <ul className="space-y-3">
                       {item.contributions.map((contribution, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <Check size={20} className="text-gray-300 shrink-0 mt-1" />
-                          <span className="text-gray-400">{contribution}</span>
+                        <li key={idx} className="flex items-start gap-2 group/item">
+                          <Check size={18} className="text-[#00FF66] shrink-0 mt-1 group-hover/item:scale-110 transition-transform" />
+                          <span className="text-gray-400 group-hover/item:text-gray-300 transition-colors">{contribution}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
               </motion.div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

@@ -15,6 +15,12 @@ module.exports = {
             },
         },
         extend: {
+            fontFamily: {
+                serif: ['Baskervville', 'Iowan Old Style', 'Apple Garamond', 'Baskerville', 'Times New Roman', 'serif'],
+                'serif-alt': ['Iowan Old Style', 'Apple Garamond', 'Baskerville', 'Times New Roman', 'serif'],
+                'heading': ['Baskervville', 'Iowan Old Style', 'Apple Garamond', 'Baskerville', 'Times New Roman', 'serif'],
+                'body': ['Baskervville', 'Iowan Old Style', 'Apple Garamond', 'Baskerville', 'Times New Roman', 'serif'],
+            },
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",

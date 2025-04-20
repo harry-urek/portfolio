@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, useInView, Variants } from 'framer-motion';
 
 interface AnimationProps {
@@ -547,5 +547,243 @@ export const ShimmerButton: React.FC<{
       />
       <span className="relative z-10">{children}</span>
     </motion.button>
+  );
+};
+
+export const InteractiveBackgroundAnimation: React.FC<{
+  className?: string;
+  color?: string;
+  density?: number;
+  cursorInteractive?: boolean;
+  scrollInteractive?: boolean;
+}> = ({ 
+  className = '', 
+  color = '#00FF66',
+  density = 20,
+  cursorInteractive = true,
+  scrollInteractive = false
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [dimensions, setDimensions] = useState({ width: 1000, height: 800 });
+  const [particles, setParticles] = useState<any[]>([]);
+  const [isGlitching, setIsGlitching] = useState(false);
+  
+  // Initialize particles
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const { width, height } = containerRef.current.getBoundingClientRect();
+    setDimensions({ width, height });
+    
+    // Create particles
+    const particlesArray = [];
+    for (let i = 0; i < density; i++) {
+      const size = Math.random() * 4 + 1;
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      const directionX = Math.random() * 1 - 0.5;
+      const directionY = Math.random() * 1 - 0.5;
+      const shape = Math.floor(Math.random() * 3); // 0: circle, 1: square, 2: triangle
+      
+      particlesArray.push({
+        x, y, size, directionX, directionY, shape
+      });
+    }
+    
+    setParticles(particlesArray);
+  }, [density]);
+  
+  // Handle mouse move
+  useEffect(() => {
+    if (!cursorInteractive) return;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      
+      const { left, top } = containerRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - left,
+        y: e.clientY - top
+      });
+      
+      // Random glitch effect on movement
+      if (Math.random() > 0.97) {
+        setIsGlitching(true);
+        setTimeout(() => setIsGlitching(false), 200);
+      }
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [cursorInteractive]);
+  
+  // Handle scroll
+  useEffect(() => {
+    if (!scrollInteractive) return;
+    
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+      
+      // Random glitch effect on scroll
+      if (Math.random() > 0.9) {
+        setIsGlitching(true);
+        setTimeout(() => setIsGlitching(false), 150);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrollInteractive]);
+  
+  // Animate particles
+  useEffect(() => {
+    const animateParticles = () => {
+      if (!containerRef.current) return;
+      
+      setParticles(prevParticles => {
+        return prevParticles.map(particle => {
+          let { x, y, directionX, directionY, size } = particle;
+          
+          // Boundary check and bounce
+          if (x > dimensions.width - size * 2 || x < size * 2) {
+            directionX = -directionX;
+          }
+          if (y > dimensions.height - size * 2 || y < size * 2) {
+            directionY = -directionY;
+          }
+          
+          // Move particles
+          x += directionX;
+          y += directionY;
+          
+          // Cursor interaction if enabled
+          if (cursorInteractive && mousePosition.x > 0) {
+            const dx = mousePosition.x - x;
+            const dy = mousePosition.y - y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDistance = 80;
+            
+            if (distance < maxDistance) {
+              const force = -maxDistance / (distance || 1);
+              directionX += (dx / distance || 0) * force * 0.05;
+              directionY += (dy / distance || 0) * force * 0.05;
+            }
+          }
+          
+          // Scroll interaction if enabled
+          if (scrollInteractive) {
+            const scrollFactor = scrollPosition * 0.01;
+            directionY += Math.sin(scrollFactor) * 0.01;
+          }
+          
+          return { ...particle, x, y, directionX, directionY };
+        });
+      });
+      
+      animationId.current = requestAnimationFrame(animateParticles);
+    };
+    
+    const animationId = { current: 0 };
+    animationId.current = requestAnimationFrame(animateParticles);
+    
+    return () => cancelAnimationFrame(animationId.current);
+  }, [dimensions, mousePosition, scrollPosition, cursorInteractive, scrollInteractive]);
+  
+  return (
+    <div 
+      ref={containerRef} 
+      className={`absolute inset-0 w-full h-full overflow-hidden z-0 ${className}`}
+      style={{ pointerEvents: 'none' }}
+    >
+      {/* Background grid */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="grid-background w-full h-full"></div>
+      </div>
+      
+      {/* Glitch effect */}
+      {isGlitching && (
+        <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
+      )}
+      
+      {/* Particles */}
+      <svg width="100%" height="100%" className="absolute top-0 left-0">
+        {particles.map((particle, index) => {
+          if (particle.shape === 0) { // Circle
+            return (
+              <circle
+                key={index}
+                cx={particle.x}
+                cy={particle.y}
+                r={particle.size}
+                fill="none"
+                stroke={color}
+                strokeWidth="1"
+                opacity={0.3 + Math.random() * 0.4}
+              />
+            );
+          } else if (particle.shape === 1) { // Square
+            return (
+              <rect
+                key={index}
+                x={particle.x - particle.size}
+                y={particle.y - particle.size}
+                width={particle.size * 2}
+                height={particle.size * 2}
+                fill="none"
+                stroke={color}
+                strokeWidth="1"
+                opacity={0.3 + Math.random() * 0.4}
+              />
+            );
+          } else { // Triangle
+            const size = particle.size * 2;
+            return (
+              <polygon
+                key={index}
+                points={`${particle.x},${particle.y - size} ${particle.x + size},${particle.y + size} ${particle.x - size},${particle.y + size}`}
+                fill="none"
+                stroke={color}
+                strokeWidth="1"
+                opacity={0.3 + Math.random() * 0.4}
+              />
+            );
+          }
+        })}
+      </svg>
+      
+      {/* Cursor follow effect */}
+      {cursorInteractive && mousePosition.x > 0 && (
+        <svg width="100%" height="100%" className="absolute top-0 left-0 pointer-events-none">
+          <circle
+            cx={mousePosition.x}
+            cy={mousePosition.y}
+            r="100"
+            fill="none"
+            stroke={color}
+            strokeWidth="1"
+            opacity="0.1"
+          >
+            <animate
+              attributeName="r"
+              from="80"
+              to="150"
+              dur="1.5s"
+              begin="0s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="opacity"
+              from="0.1"
+              to="0"
+              dur="1.5s"
+              begin="0s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>
+      )}
+    </div>
   );
 };
