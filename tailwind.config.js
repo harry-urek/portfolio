@@ -6,6 +6,10 @@ module.exports = {
         './components/**/*.{js,ts,jsx,tsx,mdx}',
         './app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
+    // Add just-in-time mode for smaller CSS bundles
+    future: {
+        hoverOnlyWhenSupported: true, // Only generates hover variants when the browser supports hover
+    },
     theme: {
         container: {
             center: true,
@@ -120,5 +124,12 @@ module.exports = {
             },
         },
     },
+    // Optimize plugin usage
     plugins: [require("tailwindcss-animate")],
-} 
+    // Add safelist for important classes that might be dynamically created
+    safelist: [
+        'active',
+        'reveal-section',
+        'magnetic-button'
+    ],
+}
