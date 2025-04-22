@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   fadeIn, 
@@ -44,17 +44,24 @@ const projects: Project[] = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-32 relative overflow-hidden">
-      {/* Interactive background animation */}
-      <InteractiveBackgroundAnimation 
-        color="var(--neon-green)" 
-        density={25}
-        cursorInteractive={true} 
+    <section id="projects" className="py-32 relative overflow-hidden bg-black">
+      {/* Background grid pattern from Experience section */}
+      <div className="absolute inset-0 z-0 opacity-20">
+        <div className="w-full h-full bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+      </div>
+      
+      {/* Neon accent line animation from Experience section */}
+      <motion.div 
+        className="absolute left-0 top-0 h-[1px] bg-[#00FF66] z-10"
+        initial={{ width: 0 }}
+        whileInView={{ width: '100%' }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       />
       
       {/* Fixed position accent lines */}
-      <div className="absolute top-24 right-0 w-32 h-1 bg-neon-green glow-sm"></div>
-      <div className="absolute bottom-32 left-0 w-32 h-1 bg-neon-green glow-sm"></div>
+      <div className="absolute top-24 right-0 w-32 h-1 bg-[#00FF66] glow-sm"></div>
+      <div className="absolute bottom-32 left-0 w-32 h-1 bg-[#00FF66] glow-sm"></div>
       
       <motion.div
         variants={staggerContainer(0.1, 0.1)}
@@ -68,10 +75,34 @@ export default function Projects() {
           variants={fadeIn('up', 0.1)}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 glitch-text">FEATURED <span className="text-neon-green">PROJECTS</span></h2>
-          <p className="max-w-2xl mx-auto text-gray-400 text-lg">
+          <motion.p 
+            className="text-sm font-medium uppercase tracking-[0.3em] mb-2 text-[#00FF66]"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            MY WORK
+          </motion.p>
+          <motion.h2 
+            className="text-5xl md:text-7xl font-bold mb-8 text-white glitch-text" 
+            data-text="FEATURED PROJECTS"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            FEATURED <span className="text-[#00FF66]">PROJECTS</span>
+          </motion.h2>
+          <motion.p 
+            className="max-w-2xl mx-auto text-gray-400 text-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
             A selection of my recent work in backend systems, microservices, and machine learning
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Projects grid */}
@@ -88,17 +119,27 @@ export default function Projects() {
               <motion.div
                 whileHover={{ 
                   y: -8,
-                  boxShadow: "0 0 30px rgba(0, 255, 102, 0.15)"
+                  borderColor: "#00FF66",
+                  boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)"
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="h-[500px] flex flex-col bg-black/20 backdrop-blur-sm border border-gray-800 hover:border-neon-green/40 rounded-lg overflow-hidden transition-all duration-300"
+                className="h-[500px] flex flex-col bg-[#0A0A0A] border border-[#333] overflow-hidden transition-all duration-300 group relative"
               >
+                {/* Animated corner accent */}
+                <div className="absolute top-0 right-0 grid-item"></div>
+                <div className="absolute bottom-0 left-0 grid-item"></div>
+                
+                {/* Hover glow effect */}
+                <motion.div 
+                  className="absolute inset-0 opacity-0 bg-[#00FF66] blur-xl z-0 group-hover:opacity-5 transition-opacity duration-300"
+                />
+                
                 {/* Project header with title and role */}
-                <div className="p-6 border-b border-gray-800 backdrop-blur-sm">
+                <div className="p-6 border-b border-[#333] backdrop-blur-sm relative z-10">
                   <div className="flex justify-between items-start">
-                    <h3 className="font-bold text-xl text-white">{project.title}</h3>
+                    <h3 className="font-bold text-xl text-white border-l-4 border-[#00FF66] pl-4">{project.title}</h3>
                     {project.role && (
-                      <span className="text-xs px-3 py-1 bg-neon-green/10 border border-neon-green/30 text-neon-green rounded-full font-mono">
+                      <span className="text-xs px-3 py-1 bg-[#00FF66]/10 border border-[#00FF66]/30 text-[#00FF66] rounded-full font-mono">
                         {project.role}
                       </span>
                     )}
@@ -106,15 +147,15 @@ export default function Projects() {
                 </div>
                 
                 {/* Project body with description and tags */}
-                <div className="p-6 flex-grow flex flex-col">
-                  <p className="text-gray-400 mb-6 flex-grow">{project.description}</p>
+                <div className="p-6 flex-grow flex flex-col relative z-10">
+                  <p className="text-gray-400 mb-6 flex-grow group-hover:text-gray-300 transition-colors">{project.description}</p>
                   
                   <div className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tags.map((tag) => (
                         <span 
                           key={tag} 
-                          className="px-3 py-1 border border-gray-700 text-gray-300 text-xs rounded-md font-mono"
+                          className="px-3 py-1 border border-[#333] text-gray-300 text-xs group-hover:border-[#00FF66]/30 transition-colors"
                         >
                           {tag}
                         </span>
@@ -124,13 +165,13 @@ export default function Projects() {
                 </div>
                 
                 {/* Project footer with links */}
-                <div className="p-4 mt-auto backdrop-blur-sm border-t border-gray-800 flex items-center justify-between">
+                <div className="p-4 mt-auto backdrop-blur-sm border-t border-[#333] flex items-center justify-between relative z-10">
                   {project.github && (
                     <Link 
                       href={project.github} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-gray-400 hover:text-neon-green transition-colors"
+                      className="inline-flex items-center text-gray-400 hover:text-[#00FF66] transition-colors"
                     >
                       <Github size={18} className="mr-2" />
                       <span className="font-mono text-sm">View Source</span>
@@ -138,16 +179,13 @@ export default function Projects() {
                   )}
                   
                   <motion.div 
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-neon-green/10 border border-neon-green/30"
+                    className="w-8 h-8 flex items-center justify-center rounded-full bg-[#00FF66]/10 border border-[#00FF66]/30"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <ExternalLink size={14} className="text-neon-green" />
+                    <ExternalLink size={14} className="text-[#00FF66]" />
                   </motion.div>
                 </div>
-                
-                {/* Glowing edge effect on hover */}
-                <div className="absolute inset-0 border border-neon-green/0 rounded-lg group-hover:border-neon-green/30 transition-all duration-300 pointer-events-none"></div>
               </motion.div>
             </motion.div>
           ))}

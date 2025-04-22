@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import ClientComponentsWrapper from '../components/ClientComponentsWrapper';
 
 // Define monospace font with fallback options
-const spaceMono = Space_Mono({ 
+const spaceMono = Space_Mono({
   subsets: ['latin'],
   weight: ['400', '700'],
   display: 'swap',
@@ -25,14 +25,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${spaceMono.className} min-h-screen`}>
+      <body className={spaceMono.className}>
+        {/* Static server-rendered content */}
         <div className="grid-background"></div>
-        <ClientComponentsWrapper />
-        
+
+        {/* Navigation and main content */}
         <Navbar />
         {children}
         <Footer />
+
+        {/* Client components rendered after hydration */}
+        <ClientComponentsWrapper />
       </body>
     </html>
   );
-} 
+}
