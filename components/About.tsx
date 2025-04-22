@@ -37,9 +37,9 @@ export default function About() {
         <div className="absolute inset-0 z-0 opacity-20">
           <div className="w-full h-full bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
-        
+
         {/* Neon accent line animation from Experience section */}
-        <motion.div 
+        <motion.div
           className="absolute left-0 top-0 h-[1px] bg-[#00FF66] z-10"
           initial={{ width: 0 }}
           whileInView={{ width: '100%' }}
@@ -53,9 +53,9 @@ export default function About() {
             <div className="space-y-8 reveal-section relative">
               {/* Neo-brutalist decorative element */}
               <div className="absolute -top-8 -left-8 w-16 h-16 border-t-4 border-l-4 border-[#00FF66] opacity-70"></div>
-              
+
               <ScrollReveal>
-                <motion.p 
+                <motion.p
                   className="text-sm font-medium uppercase tracking-[0.3em] mb-2 text-[#00FF66]"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -65,9 +65,9 @@ export default function About() {
                   ABOUT ME
                 </motion.p>
               </ScrollReveal>
-              
+
               <TextReveal>
-                <motion.h2 
+                <motion.h2
                   className="text-4xl md:text-5xl font-bold text-white glitch-text"
                   data-text="CODING ROBUST SYSTEMS"
                   initial={{ opacity: 0, y: 20 }}
@@ -78,11 +78,11 @@ export default function About() {
                   CODING <span className="text-[#00FF66]">ROBUST</span> SYSTEMS
                 </motion.h2>
               </TextReveal>
-              
+
               <ScrollReveal delay={0.2}>
                 <motion.div
                   className="bg-[#0A0A0A] border border-[#333] p-6 text-gray-300 backdrop-blur-sm"
-                  whileHover={{ 
+                  whileHover={{
                     borderColor: "#00FF66",
                     boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)",
                     y: -5
@@ -90,18 +90,18 @@ export default function About() {
                   transition={{ duration: 0.3 }}
                 >
                   <p className="font-mono leading-relaxed">
-                    I'm a full-stack developer and ML engineer specializing in high-performance 
-                    backend systems, microservices, and machine learning applications. With expertise 
-                    in Go, Python, and JavaScript, I focus on creating efficient, scalable solutions 
+                    I'm a full-stack developer and ML engineer specializing in high-performance
+                    backend systems, microservices, and machine learning applications. With expertise
+                    in Go, Python, and JavaScript, I focus on creating efficient, scalable solutions
                     for complex problems.
                   </p>
                 </motion.div>
               </ScrollReveal>
-              
+
               <ScrollReveal delay={0.3}>
                 <motion.div
                   className="bg-[#0A0A0A] border border-[#333] p-6 text-gray-300 backdrop-blur-sm"
-                  whileHover={{ 
+                  whileHover={{
                     borderColor: "#00FF66",
                     boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)",
                     y: -5
@@ -109,24 +109,24 @@ export default function About() {
                   transition={{ duration: 0.3 }}
                 >
                   <p className="font-mono leading-relaxed">
-                    My experience spans developing message brokers, session management libraries, and 
-                    ML-powered systems. I'm passionate about open-source contributions and continuously 
+                    My experience spans developing message brokers, session management libraries, and
+                    ML-powered systems. I'm passionate about open-source contributions and continuously
                     learning new technologies to enhance my development capabilities.
                   </p>
                 </motion.div>
               </ScrollReveal>
-              
+
               <ScrollReveal delay={0.4}>
                 <motion.div
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.03,
                     boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)"
                   }}
                   whileTap={{ scale: 0.97 }}
                   className="inline-block"
                 >
-                  <a 
-                    href="https://github.com/harry-urek" 
+                  <a
+                    href="https://github.com/harry-urek"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-5 py-3 bg-black border border-[#00FF66] text-[#00FF66] font-mono flex items-center gap-2 hover:bg-[#00FF66]/10 transition-all"
@@ -140,21 +140,21 @@ export default function About() {
               {/* Neo-brutalist decorative element */}
               <div className="absolute -bottom-8 -right-8 w-16 h-16 border-b-4 border-r-4 border-[#00FF66] opacity-70"></div>
             </div>
-            
+
             {/* Right Column - Skills */}
             <div className="reveal-section" style={{ transitionDelay: '0.2s' }}>
               <StaggerContainer delay={0.1}>
                 <div className="space-y-6">
                   {skillItems.map((skill, index) => (
                     <StaggerItem key={index} delay={index * 0.1}>
-                      <motion.div 
+                      <motion.div
                         className="bg-[#0A0A0A] border border-[#333] p-8 group relative overflow-hidden"
-                        whileHover={{ 
+                        whileHover={{
                           borderColor: "#00FF66",
                           boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)",
                           y: -5
                         }}
-                        transition={{ 
+                        transition={{
                           type: "spring",
                           stiffness: 300,
                           damping: 15
@@ -163,14 +163,14 @@ export default function About() {
                         {/* Animated corner accent */}
                         <div className="absolute top-0 right-0 grid-item"></div>
                         <div className="absolute bottom-0 left-0 grid-item"></div>
-                        
+
                         {/* Hover glow effect */}
-                        <motion.div 
+                        <motion.div
                           className="absolute inset-0 opacity-0 bg-[#00FF66] blur-xl z-0 group-hover:opacity-5 transition-opacity duration-300"
                         />
-                        
+
                         <div className="flex items-start gap-4 relative z-10">
-                          <motion.div 
+                          <motion.div
                             className="p-3 bg-[#00FF66] text-black rounded-none"
                             whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                             transition={{ duration: 0.5 }}

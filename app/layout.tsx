@@ -14,8 +14,13 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Developer Portfolio',
-  description: 'Professional developer portfolio showcasing skills and projects',
+  title: 'Hari Om Bhardwaj',
+  description: 'Backend Developer and ML Engineer',
+  icons: {
+    icon: '/h-icon.svg',
+    shortcut: '/h-icon.svg',
+    apple: '/h-icon.svg',
+  },
 };
 
 export default function RootLayout({

@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { 
-  fadeIn, 
-  staggerContainer, 
-  slideIn, 
-  InteractiveBackgroundAnimation 
+import { Code } from 'lucide-react';
+import {
+  fadeIn,
+  staggerContainer,
+  slideIn,
+  InteractiveBackgroundAnimation
 } from './animations';
 
 // Define types for technology categories and items
@@ -84,7 +85,26 @@ const techCategories: TechCategory[] = [
 
 export default function TechStack() {
   const [activeCategory, setActiveCategory] = useState("Languages");
-  const activeTech = techCategories.find(cat => cat.name === activeCategory)?.items || [];
+  const [activeTech, setActiveTech] = useState<TechItem[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  // Make sure we set isClient to true once component is mounted
+  useEffect(() => {
+    setIsClient(true);
+    // Initialize activeTech with the default category items
+    const initialItems = techCategories.find(cat => cat.name === "Languages")?.items || [];
+    setActiveTech(initialItems);
+  }, []);
+
+  // Update activeTech whenever activeCategory changes
+  useEffect(() => {
+    const items = techCategories.find(cat => cat.name === activeCategory)?.items || [];
+    setActiveTech(items);
+  }, [activeCategory]);
+
+  const handleCategoryChange = (categoryName: string) => {
+    setActiveCategory(categoryName);
+  };
 
   return (
     <section id="tech-stack" className="py-32 relative overflow-hidden bg-black">
@@ -92,16 +112,16 @@ export default function TechStack() {
       <div className="absolute inset-0 z-0 opacity-20">
         <div className="w-full h-full bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[size:40px_40px]"></div>
       </div>
-      
+
       {/* Neon accent line animation from Experience section */}
-      <motion.div 
+      <motion.div
         className="absolute left-0 top-0 h-[1px] bg-[#00FF66] z-10"
         initial={{ width: 0 }}
         whileInView={{ width: '100%' }}
         viewport={{ once: true }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       />
-      
+
       {/* Fixed position accent lines */}
       <div className="absolute top-24 left-0 w-32 h-1 bg-[#00FF66] glow-sm"></div>
       <div className="absolute bottom-32 right-0 w-32 h-1 bg-[#00FF66] glow-sm"></div>
@@ -118,7 +138,7 @@ export default function TechStack() {
           variants={fadeIn('up', 0.1)}
           className="text-center mb-16"
         >
-          <motion.p 
+          <motion.p
             className="text-sm font-medium uppercase tracking-[0.3em] mb-2 text-[#00FF66]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -127,7 +147,7 @@ export default function TechStack() {
           >
             TECHNICAL EXPERTISE
           </motion.p>
-          <motion.h2 
+          <motion.h2
             className="text-5xl md:text-7xl font-bold mb-8 text-white glitch-text"
             data-text="MY STACK"
             initial={{ opacity: 0, y: 20 }}
@@ -137,7 +157,7 @@ export default function TechStack() {
           >
             MY <span className="text-[#00FF66]">STACK</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="max-w-2xl mx-auto text-gray-400 text-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -154,13 +174,13 @@ export default function TechStack() {
             {techCategories.map((category, index) => (
               <motion.button
                 key={category.name}
-                onClick={() => setActiveCategory(category.name)}
+                onClick={() => handleCategoryChange(category.name)}
                 className={`px-6 py-3 transition-all duration-300 border
-                  ${activeCategory === category.name 
-                    ? 'border-[#00FF66] text-[#00FF66] bg-[#00FF66]/10' 
+                  ${activeCategory === category.name
+                    ? 'border-[#00FF66] text-[#00FF66] bg-[#00FF66]/10'
                     : 'border-[#333] text-gray-400 hover:border-gray-500'}`}
-                whileHover={{ 
-                  y: -2, 
+                whileHover={{
+                  y: -2,
                   borderColor: "#00FF66",
                   boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)"
                 }}
@@ -172,20 +192,31 @@ export default function TechStack() {
           </div>
         </motion.div>
 
+        {/* Debug info to check if we have items */}
+        {activeTech.length === 0 && isClient && (
+          <div className="text-center text-[#00FF66] mb-6">
+            Loading {activeCategory} technologies...
+          </div>
+        )}
+
         {/* Tech Items Grid */}
         <motion.div
           variants={staggerContainer(0.05, 0.3)}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          key={activeCategory} // Force re-render when category changes
         >
-          {activeTech.map((tech, index) => (
+          {isClient && activeTech.map((tech, index) => (
             <motion.div
-              key={tech.name}
+              key={`${activeCategory}-${tech.name}`}
               variants={fadeIn('up', index * 0.05 + 0.3)}
               className="group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <motion.div
-                whileHover={{ 
-                  y: -5, 
+                whileHover={{
+                  y: -5,
                   borderColor: "#00FF66",
                   boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)"
                 }}
@@ -195,27 +226,37 @@ export default function TechStack() {
                 {/* Animated corner accent */}
                 <div className="absolute top-0 right-0 grid-item"></div>
                 <div className="absolute bottom-0 left-0 grid-item"></div>
-                
+
                 {/* Hover glow effect */}
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 opacity-0 bg-[#00FF66] blur-xl z-0 group-hover:opacity-5 transition-opacity duration-300"
                 />
-                
+
                 <div className="flex flex-col items-center justify-center h-full relative z-10">
                   <div className="w-full aspect-square mb-4 flex items-center justify-center border border-[#333] bg-black/60 p-4 group-hover:border-[#00FF66] transition-colors">
-                    <motion.div 
+                    <motion.div
                       className="w-full h-full flex items-center justify-center relative"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
                       <div className="relative w-full h-full">
-                        <Image 
-                          src={tech.icon} 
-                          alt={tech.name} 
-                          fill 
+                        {/* Fallback icon in case the image fails to load */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <Code size={40} className="text-[#00FF66] opacity-20" />
+                        </div>
+
+                        <Image
+                          src={tech.icon}
+                          alt={tech.name}
+                          fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                           style={{ objectFit: 'contain' }}
                           className="filter drop-shadow-glow"
+                          onError={(e) => {
+                            // Show fallback when image fails to load
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
                         />
                       </div>
                     </motion.div>

@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { Github, ExternalLink, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { 
-  fadeIn, 
-  staggerContainer, 
-  slideIn, 
-  InteractiveBackgroundAnimation 
+import {
+  fadeIn,
+  staggerContainer,
+  slideIn,
+  InteractiveBackgroundAnimation
 } from './animations';
 
 interface Project {
@@ -49,20 +49,20 @@ export default function Projects() {
       <div className="absolute inset-0 z-0 opacity-20">
         <div className="w-full h-full bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[size:40px_40px]"></div>
       </div>
-      
+
       {/* Neon accent line animation from Experience section */}
-      <motion.div 
+      <motion.div
         className="absolute left-0 top-0 h-[1px] bg-[#00FF66] z-10"
         initial={{ width: 0 }}
         whileInView={{ width: '100%' }}
         viewport={{ once: true }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       />
-      
+
       {/* Fixed position accent lines */}
       <div className="absolute top-24 right-0 w-32 h-1 bg-[#00FF66] glow-sm"></div>
       <div className="absolute bottom-32 left-0 w-32 h-1 bg-[#00FF66] glow-sm"></div>
-      
+
       <motion.div
         variants={staggerContainer(0.1, 0.1)}
         initial="hidden"
@@ -75,7 +75,7 @@ export default function Projects() {
           variants={fadeIn('up', 0.1)}
           className="text-center mb-16"
         >
-          <motion.p 
+          <motion.p
             className="text-sm font-medium uppercase tracking-[0.3em] mb-2 text-[#00FF66]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -84,8 +84,8 @@ export default function Projects() {
           >
             MY WORK
           </motion.p>
-          <motion.h2 
-            className="text-5xl md:text-7xl font-bold mb-8 text-white glitch-text" 
+          <motion.h2
+            className="text-5xl md:text-7xl font-bold mb-8 text-white glitch-text"
             data-text="FEATURED PROJECTS"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ export default function Projects() {
           >
             FEATURED <span className="text-[#00FF66]">PROJECTS</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="max-w-2xl mx-auto text-gray-400 text-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -117,7 +117,7 @@ export default function Projects() {
               className="group"
             >
               <motion.div
-                whileHover={{ 
+                whileHover={{
                   y: -8,
                   borderColor: "#00FF66",
                   boxShadow: "0 0 20px rgba(0, 255, 102, 0.2)"
@@ -128,12 +128,12 @@ export default function Projects() {
                 {/* Animated corner accent */}
                 <div className="absolute top-0 right-0 grid-item"></div>
                 <div className="absolute bottom-0 left-0 grid-item"></div>
-                
+
                 {/* Hover glow effect */}
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 opacity-0 bg-[#00FF66] blur-xl z-0 group-hover:opacity-5 transition-opacity duration-300"
                 />
-                
+
                 {/* Project header with title and role */}
                 <div className="p-6 border-b border-[#333] backdrop-blur-sm relative z-10">
                   <div className="flex justify-between items-start">
@@ -145,16 +145,16 @@ export default function Projects() {
                     )}
                   </div>
                 </div>
-                
+
                 {/* Project body with description and tags */}
                 <div className="p-6 flex-grow flex flex-col relative z-10">
                   <p className="text-gray-400 mb-6 flex-grow group-hover:text-gray-300 transition-colors">{project.description}</p>
-                  
+
                   <div className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tags.map((tag) => (
-                        <span 
-                          key={tag} 
+                        <span
+                          key={tag}
                           className="px-3 py-1 border border-[#333] text-gray-300 text-xs group-hover:border-[#00FF66]/30 transition-colors"
                         >
                           {tag}
@@ -163,13 +163,13 @@ export default function Projects() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Project footer with links */}
                 <div className="p-4 mt-auto backdrop-blur-sm border-t border-[#333] flex items-center justify-between relative z-10">
                   {project.github && (
-                    <Link 
-                      href={project.github} 
-                      target="_blank" 
+                    <Link
+                      href={project.github}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center text-gray-400 hover:text-[#00FF66] transition-colors"
                     >
@@ -177,8 +177,8 @@ export default function Projects() {
                       <span className="font-mono text-sm">View Source</span>
                     </Link>
                   )}
-                  
-                  <motion.div 
+
+                  <motion.div
                     className="w-8 h-8 flex items-center justify-center rounded-full bg-[#00FF66]/10 border border-[#00FF66]/30"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}

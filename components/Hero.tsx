@@ -308,7 +308,7 @@ export default function Hero() {
                 <Github size={22} className="text-gray-300 hover:text-neon-green transition-colors" />
               </a>
               <a
-                href="https://linkedin.com/in/"
+                href="https://www.linkedin.com/in/ombhardwaj08/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-black/30 backdrop-blur-sm border border-gray-800 rounded-full hover:border-neon-green transition-colors relative z-20"
