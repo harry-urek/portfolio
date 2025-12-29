@@ -177,13 +177,51 @@ export default function Hero() {
                   <div className="block mt-4">Bhardwaj</div>
                 </h1>
               </div>
-
-              {/* Role with typewriter effect */}
-              <div className="pt-8">
-                <TypewriterEffect
-                  text="Backend Developer & ML Engineer"
-                  className="text-2xl lg:text-3xl font-medium"
-                />
+            </FadeUp>
+            
+            <FadeUp delay={0.2}>
+              <h1 className="text-5xl lg:text-7xl font-bold text-primary leading-tight">
+                Hi, I&apos;m <span className="border-b-4 border-primary">Hari Om Bhardwaj</span>
+              </h1>
+            </FadeUp>
+            
+            <FadeUp delay={0.3}>
+              <h2 className="text-2xl lg:text-3xl font-medium text-primary">Full Stack Developer & ML Engineer</h2>
+            </FadeUp>
+            
+            <FadeUp delay={0.4}>
+              <p className="text-secondary text-lg max-w-2xl">
+                I build robust backend systems and ML applications. My expertise includes developing high-performance 
+                microservices, messaging systems, and custom machine learning solutions using modern technologies. 
+                I&apos;m passionate about open-source contributions and creating efficient, scalable software solutions.
+              </p>
+            </FadeUp>
+            
+            <FadeUp delay={0.5}>
+              <div className="flex flex-wrap items-center gap-8 py-4">
+                <div className="flex items-center gap-3">
+                  <motion.div 
+                    className="p-3 bg-gradient-primary rounded-full"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Github className="text-white" size={22} />
+                  </motion.div>
+                  <span className="font-bold text-primary text-xl">4+</span>
+                  <span className="text-secondary">Projects</span>
+                </div>
+                 
+                <div className="flex items-center gap-3">
+                  <motion.div 
+                    className="p-3 bg-gradient-primary rounded-full"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Code className="text-white" size={22} />
+                  </motion.div>
+                  <span className="font-bold text-primary text-xl">3+</span>
+                  <span className="text-secondary">Work Experiences</span>
+                </div>
               </div>
             </div>
 

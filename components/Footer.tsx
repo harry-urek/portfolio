@@ -222,59 +222,32 @@ export default function Footer() {
             </div>
           </motion.div>
         </div>
-
-        <div className="border-t border-[#333] pt-12 pb-6">
-          <div className="text-center font-mono text-sm text-gray-500">
-            <div className="mb-6 flex justify-center gap-6">
-              <motion.a
-                href="https://github.com/harry-urek"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-[#00FF66]/10 border border-[#00FF66]/30 hover:bg-[#00FF66]/20 transition-colors rounded-full"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Github size={18} className="text-[#00FF66]" />
-              </motion.a>
-              <motion.a
-                href="https://www.linkedin.com/in/ombhardwaj08/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-[#00FF66]/10 border border-[#00FF66]/30 hover:bg-[#00FF66]/20 transition-colors rounded-full"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Linkedin size={18} className="text-[#00FF66]" />
-              </motion.a>
-              <motion.a
-                href="mailto:hariombhardwaj038@gmail.com"
-                className="p-3 bg-[#00FF66]/10 border border-[#00FF66]/30 hover:bg-[#00FF66]/20 transition-colors rounded-full"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Mail size={18} className="text-[#00FF66]" />
-              </motion.a>
-              <motion.a
-                href="https://leetcode.com/u/harry_urek/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-[#00FF66]/10 border border-[#00FF66]/30 hover:bg-[#00FF66]/20 transition-colors rounded-full"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Award size={18} className="text-[#00FF66]" />
-              </motion.a>
-            </div>
-
-            <div className="flex items-center justify-center gap-2">
-              <Code size={14} className="text-[#00FF66]" />
-              <span>Designed & Built by Hari Om Bhardwaj</span>
-              <Code size={14} className="text-[#00FF66]" />
-            </div>
-
-            <p className="mt-2">
-              &copy; {currentYear} All rights reserved.
-            </p>
+        <div>
+          <h3 className="text-lg font-medium mb-4">Connect</h3>
+          <div className="flex gap-4 flex-wrap">
+            <a href="https://github.com/harry-urek" target="_blank" rel="noopener noreferrer" 
+               className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+              <Github size={20} />
+            </a>
+            <a href="https://www.linkedin.com/in/hari-om-bhardwaj-0aa685220/" target="_blank" rel="noopener noreferrer"
+               className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+              <Linkedin size={20} />
+            </a>
+            <a href="mailto:hariombhardwaj038@gmail.com" 
+               className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+              <Mail size={20} />
+            </a>
+          </div>
+          <div className="mt-4 space-y-2 text-gray-400 text-sm">
+            <a href="https://harry-dev.tech" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition">
+              🌐 harry-dev.tech
+            </a>
+            <a href="https://leetcode.com/harry-urek" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition">
+              💻 Leetcode
+            </a>
+            <a href="https://kaggle.com/hariombhardwaj" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition">
+              📊 Kaggle
+            </a>
           </div>
         </div>
       </div>

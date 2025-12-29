@@ -14,19 +14,42 @@ interface ExperienceItem {
 
 const experienceData: ExperienceItem[] = [
   {
-    company: "Detour Berlin",
-    role: "Freelance Backend Developer",
-    period: "Nov 2023 – Feb 2024",
-    description: "Detour Berlin is a Germany-based fashion tech startup launching a luxury, membership-based clothing brand. I was engaged as a freelance backend developer to help translate business concepts into scalable backend infrastructure and advise on the technical feasibility of various product and feature ideas.",
+    company: "BugOwl AI",
+    role: "Backend Developer",
+    period: "Sep 2025 - Present",
+    description: "BugOwl AI is a Mumbai-based startup focused on AI-powered content creation. Working remotely as a backend developer building scalable audio and AI pipelines using FastAPI, React Native, GCP, Supabase, Vertex AI, Firebase, and FFmpeg.",
     contributions: [
-      "Designed and implemented the backend architecture for a membership-driven e-commerce platform using FastAPI and Next.js.",
-      "Developed secure authentication and authorization flows for the membership API, ensuring seamless and safe user access.",
-      "Built a business insights dashboard to track member and customer analytics for strategic decision-making.",
-      "Integrated object storage solutions to optimize image rendering during limited-time clothing drops.",
-      "Implemented server-side caching to reduce latency and ensure high performance during exclusive product releases.",
-      "Set up data tracking pipelines for historical drop analysis to inform future product development and marketing strategies.",
-      "Established CI/CD pipelines for internal APIs to enable reliable and scalable future development.",
-      "Managed deployment through Vercel, optimizing frontend/backend synergy."
+      "Optimized text-to-speech pipeline by migrating from short-form to long-form audio generation using SSML, reducing API calls from 30–40 to 2–3 per script and lowering CPU utilization during audio stitching with FFmpeg.",
+      "Introduced an in-memory LIFO caching mechanism for signed URL retrieval from GCP bucket, improving response times by 10x (from 10s to 2–3s) for script assets after initial load.",
+      "Integrated Vertex AI and Gemini to auto-generate AI-based poster images and enhance voice synthesis with enriched dialogue and scene context for lifelike voice generation.",
+      "Implemented Dodo payment gateway and developed a subscription-based model, enabling seamless in-app purchases and recurring revenue management."
+    ]
+  },
+  {
+    company: "RestoTag",
+    role: "Backend Developer (Freelance)",
+    period: "June 2025 - September 2025",
+    description: "RestoTag is a restaurant management platform based in Ahmedabad, Gujarat. Engaged as a freelance backend developer to re-architect and scale the backend infrastructure using FastAPI, Django, AWS (EKS, ECS), Docker, PostgreSQL, and CI/CD pipelines.",
+    contributions: [
+      "Re-architected the backend by migrating from Django (MVP) to FastAPI, building a scalable restaurant management platform featuring QR-based table booking, live menu updates, and real-time order tracking.",
+      "Implemented a multi-level role-based access system for owners, managers, chefs, and staff to streamline workflows and order processing.",
+      "Automated containerized deployments with Docker and CI/CD pipelines on AWS (EKS/ECS), ensuring reliable, low-downtime production releases.",
+      "Resolved critical real-time synchronization issues using Redis PUB/SUB, TCP, websockets to maintain consistent communication between staff and kitchen teams.",
+      "Collaborated with early restaurant clients to onboard systems, troubleshoot backend workflows, and optimize initial production performance."
+    ]
+  },
+  {
+    company: "Detour Berlin",
+    role: "Backend Developer (Freelance)",
+    period: "Jan 2025 - Mar 2025",
+    description: "Detour Berlin is a Germany-based fashion tech startup launching a luxury, membership-based clothing brand. Engaged as a freelance backend developer to build scalable backend infrastructure using FastAPI, Redis, Docker, AWS, PostgreSQL, and CI/CD pipelines.",
+    contributions: [
+      "Developed a modular FastAPI backend for a luxury e-commerce platform with secure token-based authentication, role-based access control, and well-structured APIs for scalability.",
+      "Automated CI/CD pipelines with Dockerized AWS deployments to ensure reliable releases and minimal downtime.",
+      "Integrated Redis caching and asynchronous job queues to handle flash sales and heavy user loads, reducing API latency and improving scalability.",
+      "Implemented object storage for product thumbnails and server-side image preloading, significantly enhancing response times and user experience during peak traffic.",
+      "Built a real-time analytics pipeline that tagged products and tracked their cart additions, tag co-occurrence patterns, and purchase frequency.",
+      "Processed data to train a Random Forest model that predicted high-conversion tags, enabling the business team to identify and procure products with the greatest sales potential."
     ]
   },
   {

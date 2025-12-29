@@ -28,19 +28,17 @@ const techCategories: TechCategory[] = [
   {
     name: "Languages",
     items: [
-      { name: "GoLang", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg", color: "#00ADD8" },
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", color: "#3776AB" },
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", color: "#F7DF1E" }
+      { name: "JavaScript", color: "#F7DF1E" },
+      { name: "Python", color: "#3776AB" }
     ]
   },
   {
     name: "Frameworks",
     items: [
-      { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg", color: "#009688" },
-      { name: "Flask", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg", color: "#000000" },
-      { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg", color: "#092E20" },
-      { name: "Express", icon: "/tech/express.svg", color: "#000000" },
-      { name: "NextJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", color: "#000000" }
+      { name: "FastAPI", color: "#009688" },
+      { name: "Flask", color: "#000000" },
+      { name: "NextJS", color: "#000000" },
+      { name: "Express", color: "#000000" }
     ]
   },
   {
@@ -55,30 +53,23 @@ const techCategories: TechCategory[] = [
   {
     name: "Libraries",
     items: [
-      { name: "PyTorch", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg", color: "#EE4C2C" },
-      { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg", color: "#150458" },
-      { name: "SQLAlchemy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg", color: "#D71F00" },
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "#61DAFB" }
+      { name: "PyTorch", color: "#EE4C2C" },
+      { name: "Pandas", color: "#150458" },
+      { name: "Sci-Kit", color: "#F7931E" },
+      { name: "SQLAlchemy", color: "#D71F00" },
+      { name: "Keras", color: "#D00000" },
+      { name: "LangChain", color: "#1C3C3C" }
     ]
   },
   {
     name: "Tools",
     items: [
-      { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", color: "#F05032" },
-      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "#2496ED" },
-      { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg", color: "#FF9900" },
-      { name: "Firebase", icon: "/tech/firebase.svg", color: "#FFCA28" },
-      { name: "NodeJS", icon: "/tech/nodejs.svg", color: "#339933" }
-    ]
-  },
-  {
-    name: "Others",
-    items: [
-      { name: "gRPC", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg", color: "#E10098" },
-      { name: "Java", icon: "/tech/java.svg", color: "#007396" },
-      { name: "PHP", icon: "/tech/php.svg", color: "#777BB4" },
-      { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "#FCC624" },
-      { name: "Nginx", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg", color: "#009639" }
+      { name: "Git", color: "#F05032" },
+      { name: "Vim", color: "#019733" },
+      { name: "GitHub Workflow", color: "#181717" },
+      { name: "Docker", color: "#2496ED" },
+      { name: "AWS", color: "#FF9900" },
+      { name: "GCP", color: "#4285F4" }
     ]
   }
 ];
