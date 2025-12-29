@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, useInView, Variants } from 'framer-motion';
 
 interface AnimationProps {
@@ -10,104 +10,111 @@ interface AnimationProps {
   className?: string;
 }
 
-export const fadeIn = (direction: 'up' | 'down' | 'left' | 'right' = 'up', delay: number = 0): Variants => {
-  return {
-    hidden: {
-      y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
-      x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
-      opacity: 0
-    },
-    show: {
+// Shared animation variants - centralized to reduce redundancy
+const sharedVariants = {
+  fadeUp: {
+    hidden: { opacity: 0, y: 30 },
+    visible: (params: { duration: number, delay: number }) => ({
+      opacity: 1,
       y: 0,
-      x: 0,
-      opacity: 1,
       transition: {
-        type: 'spring',
-        damping: 25,
-        stiffness: 100,
-        duration: 0.7,
-        delay
+        duration: params.duration,
+        delay: params.delay,
+        ease: "easeOut"
       }
-    }
-  };
+    })
+  },
+  // Other shared variants can be added here
 };
 
-export const slideIn = (direction: 'up' | 'down' | 'left' | 'right', delay: number = 0): Variants => {
-  return {
-    hidden: {
-      y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
-      x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
-      opacity: 0
-    },
-    show: {
-      y: 0,
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        damping: 20,
-        stiffness: 80,
-        delay
-      }
+export const fadeIn = (direction: 'up' | 'down' | 'left' | 'right' = 'up', delay: number = 0): Variants => ({
+  hidden: {
+    y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
+    x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
+    opacity: 0
+  },
+  show: {
+    y: 0,
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      damping: 25,
+      stiffness: 100,
+      duration: 0.7,
+      delay
     }
-  };
-};
+  }
+});
 
-export const staggerContainer = (staggerChildren: number, delayChildren: number = 0): Variants => {
-  return {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren,
-        delayChildren
-      }
+export const slideIn = (direction: 'up' | 'down' | 'left' | 'right', delay: number = 0): Variants => ({
+  hidden: {
+    y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
+    x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
+    opacity: 0
+  },
+  show: {
+    y: 0,
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      damping: 20,
+      stiffness: 80,
+      delay
     }
-  };
-};
+  }
+});
 
-export const textVariant = (delay: number = 0): Variants => {
-  return {
-    hidden: {
-      y: 20,
-      opacity: 0
-    },
-    show: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        damping: 25,
-        stiffness: 120,
-        delay
-      }
+export const staggerContainer = (staggerChildren: number, delayChildren: number = 0): Variants => ({
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren,
+      delayChildren
     }
-  };
-};
+  }
+});
 
-export const scaleIn = (delay: number = 0): Variants => {
-  return {
-    hidden: {
-      scale: 0.8,
-      opacity: 0
-    },
-    show: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        duration: 0.8,
-        delay
-      }
+export const textVariant = (delay: number = 0): Variants => ({
+  hidden: {
+    y: 20,
+    opacity: 0
+  },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      damping: 25,
+      stiffness: 120,
+      delay
     }
-  };
-};
+  }
+});
 
-// Reveal animation for scrolling into view
-export function ScrollReveal({ 
-  children, 
-  delay = 0.2, 
+export const scaleIn = (delay: number = 0): Variants => ({
+  hidden: {
+    scale: 0.8,
+    opacity: 0
+  },
+  show: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      duration: 0.8,
+      delay
+    }
+  }
+});
+
+// Optimized components using shared logic
+export function ScrollReveal({
+  children,
+  delay = 0.2,
   duration = 0.5,
-  className = "" 
+  className = ""
 }: AnimationProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -124,18 +131,8 @@ export function ScrollReveal({
       ref={ref}
       initial="hidden"
       animate={controls}
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { 
-          opacity: 1, 
-          y: 0, 
-          transition: { 
-            duration, 
-            delay,
-            ease: "easeOut" 
-          } 
-        }
-      }}
+      custom={{ duration, delay }}
+      variants={sharedVariants.fadeUp}
       className={className}
     >
       {children}
@@ -143,12 +140,12 @@ export function ScrollReveal({
   );
 }
 
-// Fade up animation (similar to scroll reveal but specific upward animation)
-export function FadeUp({ 
-  children, 
-  delay = 0.2, 
+// Fade up animation (reusing same logic)
+export function FadeUp({
+  children,
+  delay = 0.2,
   duration = 0.5,
-  className = "" 
+  className = ""
 }: AnimationProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -165,18 +162,8 @@ export function FadeUp({
       ref={ref}
       initial="hidden"
       animate={controls}
-      variants={{
-        hidden: { opacity: 0, y: 50 },
-        visible: { 
-          opacity: 1, 
-          y: 0, 
-          transition: { 
-            duration, 
-            delay,
-            ease: "easeOut" 
-          } 
-        }
-      }}
+      custom={{ duration, delay }}
+      variants={sharedVariants.fadeUp}
       className={className}
     >
       {children}
@@ -185,10 +172,10 @@ export function FadeUp({
 }
 
 // Text reveal with character staggering
-export function TextReveal({ 
-  children, 
-  delay = 0, 
-  className = "" 
+export function TextReveal({
+  children,
+  delay = 0,
+  className = ""
 }: AnimationProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -215,10 +202,10 @@ export function TextReveal({
 }
 
 // Container for staggered animations of children
-export function StaggerContainer({ 
-  children, 
+export function StaggerContainer({
+  children,
   delay = 0.1,
-  className = "" 
+  className = ""
 }: AnimationProps) {
   const staggerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -248,25 +235,25 @@ export function StaggerContainer({
 }
 
 // Individual item in a stagger container
-export function StaggerItem({ 
-  children, 
+export function StaggerItem({
+  children,
   delay = 0,
-  className = "" 
+  className = ""
 }: AnimationProps) {
   const itemVariants: Variants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20 
+    hidden: {
+      opacity: 0,
+      y: 20
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
+      transition: {
+        type: "spring",
+        stiffness: 100,
         damping: 15,
-        delay 
-      } 
+        delay
+      }
     }
   };
 
@@ -281,10 +268,10 @@ export function StaggerItem({
 }
 
 // Scale animation on hover
-export function HoverScale({ 
-  children, 
+export function HoverScale({
+  children,
   scale = 1.05,
-  className = "" 
+  className = ""
 }: AnimationProps & { scale?: number }) {
   return (
     <motion.div
@@ -299,11 +286,11 @@ export function HoverScale({
 }
 
 // Fade in animation
-export function FadeIn({ 
-  children, 
-  delay = 0.2, 
+export function FadeIn({
+  children,
+  delay = 0.2,
   duration = 0.5,
-  className = "" 
+  className = ""
 }: AnimationProps) {
   return (
     <motion.div
@@ -317,24 +304,19 @@ export function FadeIn({
   );
 }
 
-// Pulse animation for attention
-export function PulseAnimation({ 
-  children, 
-  className = "" 
+// Simplified Pulse Animation
+export function PulseAnimation({
+  children,
+  className = ""
 }: AnimationProps) {
   return (
     <motion.div
-      animate={{ 
-        scale: [1, 1.03, 1],
-        boxShadow: [
-          "0 0 0 rgba(0, 0, 0, 0.1)",
-          "0 4px 6px rgba(0, 0, 0, 0.15)",
-          "0 0 0 rgba(0, 0, 0, 0.1)"
-        ]
+      animate={{
+        scale: [1, 1.03, 1]
       }}
-      transition={{ 
-        duration: 2, 
-        ease: "easeInOut", 
+      transition={{
+        duration: 2,
+        ease: "easeInOut",
         repeat: Infinity,
         repeatType: "reverse"
       }}
@@ -345,7 +327,7 @@ export function PulseAnimation({
   );
 }
 
-// Enhanced animation components
+// Enhanced animation components - optimized versions
 export const ScrollRevealEnhanced: React.FC<{
   children: React.ReactNode;
   delay?: number;
@@ -356,7 +338,7 @@ export const ScrollRevealEnhanced: React.FC<{
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: threshold });
   const controls = useAnimation();
-  
+
   useEffect(() => {
     if (isInView) {
       controls.start("show");
@@ -382,9 +364,9 @@ export const GlowingBorder: React.FC<{
 }> = ({ children, className = '' }) => {
   return (
     <div className={`relative rounded-lg ${className}`}>
-      <motion.div 
+      <motion.div
         className="absolute inset-0 bg-gradient-to-r from-highlight-1 via-highlight-2 to-highlight-3 rounded-lg opacity-70 blur-md"
-        animate={{ 
+        animate={{
           backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
         }}
         transition={{
@@ -406,7 +388,7 @@ export const TextRevealEnhanced: React.FC<{
   delay?: number;
 }> = ({ text, className = '', delay = 0 }) => {
   const words = text.split(' ');
-  
+
   const container = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
@@ -414,7 +396,7 @@ export const TextRevealEnhanced: React.FC<{
       transition: { staggerChildren: 0.04, delayChildren: delay * i },
     }),
   };
-  
+
   const child = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -436,8 +418,8 @@ export const TextRevealEnhanced: React.FC<{
       animate="visible"
     >
       {words.map((word, index) => (
-        <motion.span 
-          key={index} 
+        <motion.span
+          key={index}
           className="inline-block mr-1"
           variants={child}
         >
@@ -453,7 +435,7 @@ export const GradientText: React.FC<{
   className?: string;
 }> = ({ text, className = '' }) => {
   return (
-    <motion.span 
+    <motion.span
       className={`bg-gradient-to-r from-highlight-1 to-highlight-4 bg-clip-text text-transparent ${className} animate-gradient-x bg-[size:200%_auto]`}
     >
       {text}
@@ -469,13 +451,13 @@ export const StaggerContainerEnhanced: React.FC<{
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  
+
   useEffect(() => {
     if (isInView) {
       controls.start("show");
     }
   }, [isInView, controls]);
-  
+
   return (
     <motion.div
       ref={ref}
@@ -513,8 +495,8 @@ export const FloatingElement: React.FC<{
   return (
     <motion.div
       className={className}
-      animate={{ 
-        y: [`${-amplitude/2}px`, `${amplitude/2}px`, `${-amplitude/2}px`],
+      animate={{
+        y: [`${-amplitude / 2}px`, `${amplitude / 2}px`, `${-amplitude / 2}px`],
       }}
       transition={{
         duration,
@@ -539,7 +521,7 @@ export const ShimmerButton: React.FC<{
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
     >
-      <motion.div 
+      <motion.div
         className="absolute inset-0 bg-gradient-to-r from-transparent via-highlight-3/30 to-transparent"
         style={{ backgroundSize: '200% 100%' }}
         animate={{ backgroundPosition: ['100% 0%', '-100% 0%'] }}
@@ -549,3 +531,241 @@ export const ShimmerButton: React.FC<{
     </motion.button>
   );
 };
+
+export const InteractiveBackgroundAnimation: React.FC<{
+  className?: string;
+  color?: string;
+  density?: number;
+  cursorInteractive?: boolean;
+  scrollInteractive?: boolean;
+}> = ({
+  className = '',
+  color = '#00FF66',
+  density = 20,
+  cursorInteractive = true,
+  scrollInteractive = false
+}) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [dimensions, setDimensions] = useState({ width: 1000, height: 800 });
+    const [particles, setParticles] = useState<any[]>([]);
+    const [isGlitching, setIsGlitching] = useState(false);
+
+    // Initialize particles
+    useEffect(() => {
+      if (!containerRef.current) return;
+
+      const { width, height } = containerRef.current.getBoundingClientRect();
+      setDimensions({ width, height });
+
+      // Create particles
+      const particlesArray = [];
+      for (let i = 0; i < density; i++) {
+        const size = Math.random() * 4 + 1;
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        const directionX = Math.random() * 1 - 0.5;
+        const directionY = Math.random() * 1 - 0.5;
+        const shape = Math.floor(Math.random() * 3); // 0: circle, 1: square, 2: triangle
+
+        particlesArray.push({
+          x, y, size, directionX, directionY, shape
+        });
+      }
+
+      setParticles(particlesArray);
+    }, [density]);
+
+    // Handle mouse move
+    useEffect(() => {
+      if (!cursorInteractive) return;
+
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!containerRef.current) return;
+
+        const { left, top } = containerRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: e.clientX - left,
+          y: e.clientY - top
+        });
+
+        // Random glitch effect on movement
+        if (Math.random() > 0.97) {
+          setIsGlitching(true);
+          setTimeout(() => setIsGlitching(false), 200);
+        }
+      };
+
+      window.addEventListener('mousemove', handleMouseMove);
+      return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, [cursorInteractive]);
+
+    // Handle scroll
+    useEffect(() => {
+      if (!scrollInteractive) return;
+
+      const handleScroll = () => {
+        setScrollPosition(window.scrollY);
+
+        // Random glitch effect on scroll
+        if (Math.random() > 0.9) {
+          setIsGlitching(true);
+          setTimeout(() => setIsGlitching(false), 150);
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, [scrollInteractive]);
+
+    // Animate particles
+    useEffect(() => {
+      const animateParticles = () => {
+        if (!containerRef.current) return;
+
+        setParticles(prevParticles => {
+          return prevParticles.map(particle => {
+            let { x, y, directionX, directionY, size } = particle;
+
+            // Boundary check and bounce
+            if (x > dimensions.width - size * 2 || x < size * 2) {
+              directionX = -directionX;
+            }
+            if (y > dimensions.height - size * 2 || y < size * 2) {
+              directionY = -directionY;
+            }
+
+            // Move particles
+            x += directionX;
+            y += directionY;
+
+            // Cursor interaction if enabled
+            if (cursorInteractive && mousePosition.x > 0) {
+              const dx = mousePosition.x - x;
+              const dy = mousePosition.y - y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              const maxDistance = 80;
+
+              if (distance < maxDistance) {
+                const force = -maxDistance / (distance || 1);
+                directionX += (dx / distance || 0) * force * 0.05;
+                directionY += (dy / distance || 0) * force * 0.05;
+              }
+            }
+
+            // Scroll interaction if enabled
+            if (scrollInteractive) {
+              const scrollFactor = scrollPosition * 0.01;
+              directionY += Math.sin(scrollFactor) * 0.01;
+            }
+
+            return { ...particle, x, y, directionX, directionY };
+          });
+        });
+
+        animationId.current = requestAnimationFrame(animateParticles);
+      };
+
+      const animationId = { current: 0 };
+      animationId.current = requestAnimationFrame(animateParticles);
+
+      return () => cancelAnimationFrame(animationId.current);
+    }, [dimensions, mousePosition, scrollPosition, cursorInteractive, scrollInteractive]);
+
+    return (
+      <div
+        ref={containerRef}
+        className={`absolute inset-0 w-full h-full overflow-hidden z-0 ${className}`}
+        style={{ pointerEvents: 'none' }}
+      >
+        {/* Background grid */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="grid-background w-full h-full"></div>
+        </div>
+
+        {/* Glitch effect */}
+        {isGlitching && (
+          <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
+        )}
+
+        {/* Particles */}
+        <svg width="100%" height="100%" className="absolute top-0 left-0">
+          {particles.map((particle, index) => {
+            if (particle.shape === 0) { // Circle
+              return (
+                <circle
+                  key={index}
+                  cx={particle.x}
+                  cy={particle.y}
+                  r={particle.size}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="1"
+                  opacity={0.3 + Math.random() * 0.4}
+                />
+              );
+            } else if (particle.shape === 1) { // Square
+              return (
+                <rect
+                  key={index}
+                  x={particle.x - particle.size}
+                  y={particle.y - particle.size}
+                  width={particle.size * 2}
+                  height={particle.size * 2}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="1"
+                  opacity={0.3 + Math.random() * 0.4}
+                />
+              );
+            } else { // Triangle
+              const size = particle.size * 2;
+              return (
+                <polygon
+                  key={index}
+                  points={`${particle.x},${particle.y - size} ${particle.x + size},${particle.y + size} ${particle.x - size},${particle.y + size}`}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="1"
+                  opacity={0.3 + Math.random() * 0.4}
+                />
+              );
+            }
+          })}
+        </svg>
+
+        {/* Cursor follow effect */}
+        {cursorInteractive && mousePosition.x > 0 && (
+          <svg width="100%" height="100%" className="absolute top-0 left-0 pointer-events-none">
+            <circle
+              cx={mousePosition.x}
+              cy={mousePosition.y}
+              r="100"
+              fill="none"
+              stroke={color}
+              strokeWidth="1"
+              opacity="0.1"
+            >
+              <animate
+                attributeName="r"
+                from="80"
+                to="150"
+                dur="1.5s"
+                begin="0s"
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="opacity"
+                from="0.1"
+                to="0"
+                dur="1.5s"
+                begin="0s"
+                repeatCount="indefinite"
+              />
+            </circle>
+          </svg>
+        )}
+      </div>
+    );
+  };

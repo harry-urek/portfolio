@@ -1,18 +1,34 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Space_Mono } from 'next/font/google';
 import './globals.css';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import ClientComponentsWrapper from '../components/ClientComponentsWrapper';
 
-// Define font with fallback options
-const inter = Inter({ 
+// Define monospace font with fallback options and font-display: swap for faster rendering
+const spaceMono = Space_Mono({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
   display: 'swap',
-  fallback: ['system-ui', 'Arial', 'sans-serif'],
+  preload: true,
+  fallback: ['monospace', 'Courier New', 'Courier'],
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#00FF66',
+};
+
 export const metadata: Metadata = {
-  title: 'Developer Portfolio',
-  description: 'Professional developer portfolio showcasing skills and projects',
+  title: 'Hari Om Bhardwaj',
+  description: 'Backend Developer and ML Engineer',
+  icons: {
+    icon: '/h-icon.svg',
+    shortcut: '/h-icon.svg',
+    apple: '/h-icon.svg',
+  },
+  // Removed viewport and themeColor as they now have a dedicated export
 };
 
 export default function RootLayout({
@@ -22,10 +38,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen`}>
-        <div className="main-background fixed inset-0 -z-10"></div>
+      <body className={spaceMono.className}>
+        {/* Static server-rendered content with optimized rendering */}
+        <div className="grid-background" aria-hidden="true"></div>
+
+        {/* Navigation and main content */}
+        <Navbar />
         {children}
+        <Footer />
+
+        {/* Client components rendered after hydration */}
+        <ClientComponentsWrapper />
       </body>
     </html>
   );
-} 
+}
