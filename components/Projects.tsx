@@ -15,9 +15,16 @@ interface Project {
 const projects: Project[] = [
   {
     title: 'ROOM - Messaging Backend',
-    description: 'A high-performance messaging backend with E2E encryption, Auth0, and protobuf security. Features optimized real-time messaging via WebSockets, Redis PUB/SUB, and async architecture for improved performance.',
+    description: 'Built a containerized FastAPI-based real-time messaging backend supporting secure room-based communication via WebSockets and Redis PUB/SUB. Implemented JWT authentication with Auth0, end-to-end encryption using Signal Protocol (Diffie–Hellman, ECC), and Protocol Buffers for efficient data serialization. Designed an asynchronous architecture enabling high concurrency, low latency, and scalable performance under heavy loads.',
     tags: ['FastAPI', 'PostgreSQL', 'Docker', 'Redis', 'SQLAlchemy', 'Protocol Buffers'],
     github: 'https://github.com/harry-urek/ROOM',
+    role: 'Solo Dev'
+  },
+  {
+    title: 'Draftle - AI Email Reply Agent',
+    description: 'Developed an AI-powered full-stack email assistant that generates personalized Gmail replies by learning each user\'s tone, phrasing, and writing style. Designed a persona synthesis pipeline using questionnaire data and real email threads, creating structured JSON profiles refined via Vertex AI Gemini. Integrated Gmail OAuth for thread syncing, caching, and contextual drafting while deploying a scalable backend on GCP Cloud Run with Redis and Prisma ORM.',
+    tags: ['Vertex AI', 'Next.js', 'Express', 'Redis', 'GCP Cloud Run', 'Docker', 'Prisma', 'MongoDB'],
+    github: 'https://github.com/harry-urek/Draftle',
     role: 'Solo Dev'
   },
   {
