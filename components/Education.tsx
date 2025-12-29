@@ -17,15 +17,8 @@ const educationItems: EducationItem[] = [
     institution: "Siksha O Anusandhan University, ITER",
     degree: "Bachelor of Engineering in Computer Science",
     location: "Bhubaneshwar, Odisha, India",
-    period: "Sep. 2021 - June 2025",
-    gpa: "GPA: 3.1, CGPA(7.91/10.0)"
-  },
-  {
-    institution: "Indian Institute Of Technology-Madras",
-    degree: "Bachelor of Science in Data Science",
-    location: "Chennai, Tamil Nadu, India",
-    period: "Aug. 2023 - Dec. 2027",
-    gpa: "GPA: 3.0, CGPA(7.56/10.0)"
+    period: "Oct. 2021 - June 2025",
+    gpa: "GPA: 3.1, CGPA(8.1/10.0)"
   }
 ];
 

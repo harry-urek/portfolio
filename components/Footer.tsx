@@ -37,18 +37,29 @@ export default function Footer() {
         </div>
         <div>
           <h3 className="text-lg font-medium mb-4">Connect</h3>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <a href="https://github.com/harry-urek" target="_blank" rel="noopener noreferrer" 
                className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
               <Github size={20} />
             </a>
-            <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.linkedin.com/in/hari-om-bhardwaj-0aa685220/" target="_blank" rel="noopener noreferrer"
                className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
               <Linkedin size={20} />
             </a>
             <a href="mailto:hariombhardwaj038@gmail.com" 
                className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
               <Mail size={20} />
+            </a>
+          </div>
+          <div className="mt-4 space-y-2 text-gray-400 text-sm">
+            <a href="https://harry-dev.tech" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition">
+              🌐 harry-dev.tech
+            </a>
+            <a href="https://leetcode.com/harry-urek" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition">
+              💻 Leetcode
+            </a>
+            <a href="https://kaggle.com/hariombhardwaj" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition">
+              📊 Kaggle
             </a>
           </div>
         </div>

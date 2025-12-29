@@ -82,7 +82,7 @@ export default function Hero() {
                   >
                     <Github className="text-white" size={22} />
                   </motion.div>
-                  <span className="font-bold text-primary text-xl">3+</span>
+                  <span className="font-bold text-primary text-xl">4+</span>
                   <span className="text-secondary">Projects</span>
                 </div>
                  
@@ -94,8 +94,8 @@ export default function Hero() {
                   >
                     <Code className="text-white" size={22} />
                   </motion.div>
-                  <span className="font-bold text-primary text-xl">2+</span>
-                  <span className="text-secondary">Universities</span>
+                  <span className="font-bold text-primary text-xl">3+</span>
+                  <span className="text-secondary">Work Experiences</span>
                 </div>
               </div>
             </FadeUp>

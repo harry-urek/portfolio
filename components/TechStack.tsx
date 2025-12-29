@@ -20,9 +20,8 @@ const techCategories: TechCategory[] = [
   {
     name: "Languages",
     items: [
-      { name: "GoLang", color: "#00ADD8" },
-      { name: "Python", color: "#3776AB" },
-      { name: "JavaScript", color: "#F7DF1E" }
+      { name: "JavaScript", color: "#F7DF1E" },
+      { name: "Python", color: "#3776AB" }
     ]
   },
   {
@@ -30,9 +29,8 @@ const techCategories: TechCategory[] = [
     items: [
       { name: "FastAPI", color: "#009688" },
       { name: "Flask", color: "#000000" },
-      { name: "Django", color: "#092E20" },
-      { name: "Express", color: "#000000" },
-      { name: "NextJS", color: "#000000" }
+      { name: "NextJS", color: "#000000" },
+      { name: "Express", color: "#000000" }
     ]
   },
   {
@@ -49,8 +47,10 @@ const techCategories: TechCategory[] = [
     items: [
       { name: "PyTorch", color: "#EE4C2C" },
       { name: "Pandas", color: "#150458" },
+      { name: "Sci-Kit", color: "#F7931E" },
       { name: "SQLAlchemy", color: "#D71F00" },
-      { name: "Pydantic", color: "#E92063" }
+      { name: "Keras", color: "#D00000" },
+      { name: "LangChain", color: "#1C3C3C" }
     ]
   },
   {
@@ -58,19 +58,10 @@ const techCategories: TechCategory[] = [
     items: [
       { name: "Git", color: "#F05032" },
       { name: "Vim", color: "#019733" },
-      { name: "GitHub", color: "#181717" },
+      { name: "GitHub Workflow", color: "#181717" },
       { name: "Docker", color: "#2496ED" },
-      { name: "AWS", color: "#FF9900" }
-    ]
-  },
-  {
-    name: "Protocols",
-    items: [
-      { name: "gRPC", color: "#244C5A" },
-      { name: "WebSockets", color: "#010101" },
-      { name: "REST", color: "#3884FF" },
-      { name: "OAuth 2.0", color: "#EB5424" },
-      { name: "JWT", color: "#000000" }
+      { name: "AWS", color: "#FF9900" },
+      { name: "GCP", color: "#4285F4" }
     ]
   }
 ];
