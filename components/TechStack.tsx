@@ -38,7 +38,8 @@ const techCategories: TechCategory[] = [
     items: [
       { name: "PostgreSQL", color: "#336791" },
       { name: "MySQL", color: "#4479A1" },
-      { name: "Redis", color: "#DC382D" }
+      { name: "Redis", color: "#DC382D" },
+      { name: "MongoDB", color: "#47A248" }
     ]
   },
   {
