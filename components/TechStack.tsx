@@ -14,7 +14,7 @@ import {
 // Define types for technology categories and items
 interface TechItem {
   name: string;
-  icon: string;
+  icon?: string;
   color?: string;
 }
 
@@ -236,19 +236,21 @@ export default function TechStack() {
                           <Code size={40} className="text-[#00FF66] opacity-20" />
                         </div>
 
-                        <Image
-                          src={tech.icon}
-                          alt={tech.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                          style={{ objectFit: 'contain' }}
-                          className="filter drop-shadow-glow"
-                          onError={(e) => {
-                            // Show fallback when image fails to load
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                          }}
-                        />
+                        {tech.icon && (
+                          <Image
+                            src={tech.icon}
+                            alt={tech.name}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                            style={{ objectFit: 'contain' }}
+                            className="filter drop-shadow-glow"
+                            onError={(e) => {
+                              // Show fallback when image fails to load
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                        )}
                       </div>
                     </motion.div>
                   </div>

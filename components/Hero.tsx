@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Download, Mail, Github, Linkedin, ChevronDown } from 'lucide-react';
+import { Download, Mail, Github, Linkedin, ChevronDown, Code } from 'lucide-react';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { fadeIn, staggerContainer, slideIn, InteractiveBackgroundAnimation } from './animations';
+import { InteractiveBackgroundAnimation, FadeUp } from './animations';
 
 // Enhanced typewriter with cursor animation
 const TypewriterEffect = ({ text, className = "" }: { text: string; className?: string }) => {
@@ -99,45 +99,15 @@ const GlitchText = ({ text, className = "" }: { text: string; className?: string
 
 export default function Hero() {
   const [isMounted, setIsMounted] = useState(false);
-  const [showCursor, setShowCursor] = useState(true);
-  const heroRef = useRef(null);
 
   useEffect(() => {
     setIsMounted(true);
-
-    // Blinking cursor effect
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 500);
-
-    return () => clearInterval(cursorInterval);
   }, []);
 
   const scrollToNext = () => {
     const nextSection = document.getElementById("about");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  // Subtle text glitch effect animation variants
-  const glitchTextVariants = {
-    hidden: { opacity: 1 }, // Set to visible even when "hidden"
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.2,
-      }
-    },
-    glitch: {
-      opacity: 1,
-      x: [0, -2, 2, -2, 0],
-      y: [0, 1, -1, 1, 0],
-      transition: {
-        duration: 0.3,
-        repeat: 3,
-        repeatType: "mirror" as const
-      }
     }
   };
 
@@ -162,119 +132,63 @@ export default function Hero() {
           <div className="space-y-10 lg:col-span-3">
             <div className="space-y-8 font-mono">
               {/* Title */}
-              <div className="space-y-1">
-                <h1 className="text-6xl md:text-7xl font-bold leading-none tracking-tighter font-mono">
-                  <div className="flex items-center">
-                    <span className="block">Hi,</span>
-                    <span className="text-neon-green ml-4">I'm</span>
-                  </div>
-                  <div className="block mt-4">
-                    <GlitchText
-                      text="Hari Om"
-                      className="text-white"
-                    />
-                  </div>
-                  <div className="block mt-4">Bhardwaj</div>
-                </h1>
-              </div>
-            </FadeUp>
-            
-            <FadeUp delay={0.2}>
-              <h1 className="text-5xl lg:text-7xl font-bold text-primary leading-tight">
-                Hi, I&apos;m <span className="border-b-4 border-primary">Hari Om Bhardwaj</span>
-              </h1>
-            </FadeUp>
-            
-            <FadeUp delay={0.3}>
-              <h2 className="text-2xl lg:text-3xl font-medium text-primary">Full Stack Developer & ML Engineer</h2>
-            </FadeUp>
-            
-            <FadeUp delay={0.4}>
-              <p className="text-secondary text-lg max-w-2xl">
-                I build robust backend systems and ML applications. My expertise includes developing high-performance 
-                microservices, messaging systems, and custom machine learning solutions using modern technologies. 
-                I&apos;m passionate about open-source contributions and creating efficient, scalable software solutions.
-              </p>
-            </FadeUp>
-            
-            <FadeUp delay={0.5}>
-              <div className="flex flex-wrap items-center gap-8 py-4">
-                <div className="flex items-center gap-3">
-                  <motion.div 
-                    className="p-3 bg-gradient-primary rounded-full"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Github className="text-white" size={22} />
-                  </motion.div>
-                  <span className="font-bold text-primary text-xl">4+</span>
-                  <span className="text-secondary">Projects</span>
+              <FadeUp>
+                <div className="space-y-4">
+                  <span className="text-lg text-neon-green">Hi, I&apos;m</span>
+                  <h1 className="text-6xl md:text-7xl font-bold leading-tight tracking-tighter">
+                    <span className="block mt-2 border-b-4 border-neon-green inline-block pb-2">
+                      <GlitchText
+                        text="Hari Om Bhardwaj"
+                        className="text-white"
+                      />
+                    </span>
+                  </h1>
                 </div>
-                 
-                <div className="flex items-center gap-3">
-                  <motion.div 
-                    className="p-3 bg-gradient-primary rounded-full"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Code className="text-white" size={22} />
-                  </motion.div>
-                  <span className="font-bold text-primary text-xl">3+</span>
-                  <span className="text-secondary">Work Experiences</span>
-                </div>
-              </div>
-            </div>
+              </FadeUp>
 
-            {/* Animations only apply after client-side hydration */}
-            {isMounted && (
-              <>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="space-y-5 font-mono absolute top-0 left-0 w-full"
-                  style={{ pointerEvents: 'none', touchAction: 'none' }}
-                >
-                  <motion.div
-                    variants={fadeIn('up', 0.1)}
-                    className="inline-block px-4 py-2 border border-neon-green/30 backdrop-blur-sm rounded-full text-sm opacity-0"
-                  >
-                    Computer Science & AI Engineer
-                  </motion.div>
+              <FadeUp delay={0.3}>
+                <TypewriterEffect
+                  text="Full Stack Developer & ML Engineer"
+                  className="text-2xl lg:text-3xl font-medium text-primary"
+                />
+              </FadeUp>
 
-                  <div className="space-y-1">
-                    <motion.h1
-                      className="text-5xl md:text-7xl font-bold leading-none tracking-tighter font-mono opacity-0"
-                      initial="hidden"
-                      animate="visible"
-                      whileHover="glitch"
-                      variants={glitchTextVariants}
+              <FadeUp delay={0.4}>
+                <p className="text-secondary text-lg max-w-2xl">
+                  I build robust backend systems and ML applications. My expertise includes developing high-performance
+                  microservices, messaging systems, and custom machine learning solutions using modern technologies.
+                  I&apos;m passionate about open-source contributions and creating efficient, scalable software solutions.
+                </p>
+              </FadeUp>
+
+              <FadeUp delay={0.5}>
+                <div className="flex flex-wrap items-center gap-8 py-4">
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="p-3 bg-gradient-primary rounded-full"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <motion.span
-                        variants={fadeIn('up', 0.2)}
-                        className="block"
-                      >
-                        Hi, I'm
-                      </motion.span>
-                      <motion.span
-                        variants={fadeIn('up', 0.3)}
-                        className="block text-neon-green glitch-text mt-2"
-                      >
-                        Hari O m Bhardwaj
-                      </motion.span>
-
-                    </motion.h1>
+                      <Github className="text-white" size={22} />
+                    </motion.div>
+                    <span className="font-bold text-primary text-xl">4+</span>
+                    <span className="text-secondary">Projects</span>
                   </div>
 
-                  <motion.div variants={fadeIn('up', 0.5)} className="pt-4 opacity-0">
-                    <TypewriterEffect
-                      text="Backend Developer & ML Engineer"
-                      className="text-2xl lg:text-3xl font-medium"
-                    />
-                  </motion.div>
-                </motion.div>
-              </>
-            )}
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="p-3 bg-gradient-primary rounded-full"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Code className="text-white" size={22} />
+                    </motion.div>
+                    <span className="font-bold text-primary text-xl">3+</span>
+                    <span className="text-secondary">Work Experiences</span>
+                  </div>
+                </div>
+              </FadeUp>
+            </div>
 
             <p className="text-lg text-gray-400 max-w-2xl font-light leading-relaxed">
               I build robust backend systems and ML applications. My expertise includes developing high-performance
