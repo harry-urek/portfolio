@@ -146,54 +146,32 @@ export default function Hero() {
                 </div>
               </FadeUp>
 
-              <FadeUp delay={0.3}>
-                <TypewriterEffect
-                  text="Full Stack Developer & ML Engineer"
-                  className="text-2xl lg:text-3xl font-medium text-primary"
-                />
-              </FadeUp>
+              <TypewriterEffect
+                text="Full Stack Developer & ML Engineer"
+                className="text-2xl lg:text-3xl font-medium text-primary"
+              />
 
-              <FadeUp delay={0.4}>
-                <p className="text-secondary text-lg max-w-2xl">
-                  I build robust backend systems and ML applications. My expertise includes developing high-performance
-                  microservices, messaging systems, and custom machine learning solutions using modern technologies.
-                  I&apos;m passionate about open-source contributions and creating efficient, scalable software solutions.
-                </p>
-              </FadeUp>
+              <div className="flex flex-wrap items-center gap-8 py-4">
 
-              <FadeUp delay={0.5}>
-                <div className="flex flex-wrap items-center gap-8 py-4">
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      className="p-3 bg-gradient-primary rounded-full"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Github className="text-white" size={22} />
-                    </motion.div>
-                    <span className="font-bold text-primary text-xl">4+</span>
-                    <span className="text-secondary">Projects</span>
-                  </div>
 
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      className="p-3 bg-gradient-primary rounded-full"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Code className="text-white" size={22} />
-                    </motion.div>
-                    <span className="font-bold text-primary text-xl">3+</span>
-                    <span className="text-secondary">Work Experiences</span>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    className="p-3 bg-gradient-primary rounded-full"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Code className="text-white" size={22} />
+                  </motion.div>
+                  <span className="font-bold text-primary text-xl">3+</span>
+                  <span className="text-secondary">Work Experiences</span>
                 </div>
-              </FadeUp>
+              </div>
             </div>
 
             <p className="text-lg text-gray-400 max-w-2xl font-light leading-relaxed">
               I build robust backend systems and ML applications. My expertise includes developing high-performance
               microservices, messaging systems, and custom machine learning solutions using modern technologies.
-              I'm passionate about open-source contributions and creating efficient, scalable software solutions.
+              I&apos;m passionate about open-source contributions and creating efficient, scalable software solutions.
             </p>
 
             <div className="flex flex-wrap items-center gap-8 py-4">
@@ -237,7 +215,7 @@ export default function Hero() {
                 className="button-secondary px-8 py-4 border border-gray-700 hover:border-neon-green/50 rounded-md flex items-center gap-2 transition text-lg group relative z-20"
                 style={{ pointerEvents: 'auto' }}
               >
-                <span className="font-mono">Let's Talk</span>
+                <span className="font-mono">Let&apos;s Talk</span>
                 <ChevronDown size={20} className="group-hover:translate-y-1 transition-transform" />
               </Link>
             </div>
@@ -327,28 +305,30 @@ export default function Hero() {
         </div>
       </div>
 
-      {isMounted && (
-        <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          onClick={scrollToNext}
-          style={{ pointerEvents: 'none' }}
-        >
+      {
+        isMounted && (
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatType: "loop"
-            }}
-            className="p-3 rounded-full border border-neon-green/30 bg-black/30 backdrop-blur-sm"
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            onClick={scrollToNext}
+            style={{ pointerEvents: 'none' }}
           >
-            <ChevronDown className="text-neon-green opacity-0" size={24} />
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "loop"
+              }}
+              className="p-3 rounded-full border border-neon-green/30 bg-black/30 backdrop-blur-sm"
+            >
+              <ChevronDown className="text-neon-green opacity-0" size={24} />
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </section>
+        )
+      }
+    </section >
   );
 }
